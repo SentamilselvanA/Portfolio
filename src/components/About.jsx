@@ -1,0 +1,78 @@
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
+
+const MILESTONES = [
+  { year: '2020', title: 'Started Programming', desc: 'Discovered the world of code. Wrote my first "Hello, World!" and never looked back.', icon: '🚀', color: '#00f5ff', side: 'left' },
+  { year: '2021', title: 'Learned Java', desc: 'Dived deep into OOP concepts, data structures, and algorithms with Java as the foundation.', icon: '☕', color: '#8b5cf6', side: 'right' },
+  { year: '2022', title: 'Started Web Development', desc: 'Discovered HTML, CSS, JavaScript — the holy trinity of the web. Built my first interactive pages.', icon: '🌐', color: '#ec4899', side: 'left' },
+  { year: '2023', title: 'Built MERN Projects', desc: 'Mastered React, Node.js, Express, and MongoDB. Transformed ideas into full-stack applications.', icon: '⚡', color: '#fbbf24', side: 'right' },
+  { year: '2024', title: 'Solved 200+ Problems', desc: 'LeetCode grind mode: Data structures, algorithms, and competitive programming challenges conquered.', icon: '🧩', color: '#10b981', side: 'left' },
+  { year: 'NOW', title: 'Preparing For Career', desc: 'Building impactful products and seeking opportunities to create at scale with amazing teams.', icon: '🎯', color: '#00f5ff', side: 'right' },
+]
+
+function TimelineItem({ item, index }) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-100px' })
+  const isLeft = item.side === 'left'
+
+  return (
+    <motion.div
+      ref={ref}
+      className={`relative flex items-center mb-16 ${isLeft ? 'flex-row' : 'flex-row-reverse'}`}
+      initial={{ opacity: 0, x: isLeft ? -60 : 60 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.8, delay: index * 0.1, ease: [0.23, 1, 0.32, 1] }}
+    >
+      {/* Content */}
+      <div className={`w-5/12 ${isLeft ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
+        <div className="glass gradient-border p-5 hover:scale-105 transition-transform duration-300"
+          style={{ background: `rgba(${item.color === '#00f5ff' ? '0,245,255' : item.color === '#8b5cf6' ? '139,92,246' : item.color === '#ec4899' ? '236,72,153' : item.color === '#fbbf24' ? '251,191,36' : '16,185,129'},0.05)` }}>
+          <div className="font-mono text-xs mb-1" style={{ color: item.color }}>{item.year}</div>
+          <div className="font-orbitron font-bold text-white mb-2">{item.title}</div>
+          <div className="text-sm text-gray-400 leading-relaxed">{item.desc}</div>
+        </div>
+      </div>
+
+      {/* Center dot */}
+      <div className="w-2/12 flex justify-center relative z-10">
+        <motion.div
+          className="w-14 h-14 rounded-full flex items-center justify-center text-2xl"
+          style={{ background: `radial-gradient(circle, ${item.color}22, ${item.color}11)`, border: `2px solid ${item.color}`, boxShadow: `0 0 20px ${item.color}44` }}
+          animate={inView ? { scale: [0.8, 1.1, 1], rotate: [0, 10, 0] } : {}}
+          transition={{ duration: 0.6, delay: index * 0.1 + 0.3 }}
+        >
+          {item.icon}
+        </motion.div>
+      </div>
+
+      {/* Empty space */}
+      <div className="w-5/12" />
+    </motion.div>
+  )
+}
+
+export default function About() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true })
+
+  return (
+    <section id="about" className="relative py-24 px-4 z-10">
+      <div className="max-w-5xl mx-auto">
+        {/* Header */}
+        <motion.div ref={ref} className="text-center mb-20"
+          initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
+          <div className="font-mono text-cyan-400 text-sm tracking-widest mb-3">// CHAPTER 01</div>
+          <h2 className="font-orbitron font-black text-4xl md:text-6xl glow-cyan text-cyan-400 mb-4">MY JOURNEY</h2>
+          <p className="text-gray-400 max-w-xl mx-auto">Every great developer has a story. Here's mine — milestones that shaped who I am.</p>
+        </motion.div>
+
+        {/* Timeline */}
+        <div className="relative">
+          {/* Central line */}
+          <div className="timeline-line" />
+          {MILESTONES.map((item, i) => <TimelineItem key={i} item={item} index={i} />)}
+        </div>
+      </div>
+    </section>
+  )
+}
