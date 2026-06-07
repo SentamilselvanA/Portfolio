@@ -86,8 +86,8 @@ export default function About() {
         <motion.div ref={ref} className="text-center mb-20"
           initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
           <div className="font-mono text-cyan-400 text-sm tracking-widest mb-3">// CHAPTER 01</div>
-          <h2 className="font-orbitron font-black text-4xl md:text-6xl glow-cyan text-cyan-400 mb-4">MY JOURNEY</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">Passionate CSE student at Sri Eshwar College of Engineering, focused on Full Stack Development, DSA, and Software Engineering — transforming ideas into real-world applications.</p>
+          <h2 className="font-orbitron font-black text-4xl md:text-6xl glow-cyan text-cyan-400 mb-6">MY JOURNEY</h2>
+          <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed">Passionate CSE student at Sri Eshwar College of Engineering, focused on Full Stack Development, DSA, and Software Engineering — transforming ideas into real-world applications.</p>
         </motion.div>
 
         {/* Timeline */}

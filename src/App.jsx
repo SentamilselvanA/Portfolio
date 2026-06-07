@@ -114,10 +114,10 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen animated-bg">
-      {/* Ambient orbs */}
-      <div className="ambient-orb" style={{ width: 600, height: 600, background: '#00f5ff', top: '10%', left: '-10%' }} />
-      <div className="ambient-orb" style={{ width: 500, height: 500, background: '#8b5cf6', top: '40%', right: '-10%' }} />
-      <div className="ambient-orb" style={{ width: 400, height: 400, background: '#ec4899', bottom: '10%', left: '30%' }} />
+      {/* Ambient orbs — reduced opacity & larger blur for softer atmosphere */}
+      <div className="ambient-orb" style={{ width: 500, height: 500, background: '#00f5ff', top: '10%', left: '-12%' }} />
+      <div className="ambient-orb" style={{ width: 420, height: 420, background: '#8b5cf6', top: '40%', right: '-12%' }} />
+      <div className="ambient-orb" style={{ width: 340, height: 340, background: '#ec4899', bottom: '10%', left: '30%' }} />
 
       <div className="cursor" ref={cursorRef} />
       <div className="cursor-follower" ref={followerRef} />

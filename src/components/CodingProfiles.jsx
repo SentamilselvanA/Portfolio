@@ -104,8 +104,8 @@ export default function CodingProfiles() {
         <motion.div ref={ref} className="text-center mb-16"
           initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
           <div className="font-mono text-yellow-400 text-sm tracking-widest mb-3">// CHAPTER 04</div>
-          <h2 className="font-orbitron font-black text-4xl md:text-6xl glow-gold text-yellow-400 mb-4">STATS DASHBOARD</h2>
-          <p className="text-gray-400">Quantified progress — every commit, every solve, every streak.</p>
+          <h2 className="font-orbitron font-black text-4xl md:text-6xl glow-gold text-yellow-400 mb-6">STATS DASHBOARD</h2>
+          <p className="text-gray-300">Quantified progress — every commit, every solve, every streak.</p>
         </motion.div>
 
         {/* Quick stat badges */}

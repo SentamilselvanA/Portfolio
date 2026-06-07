@@ -118,8 +118,8 @@ export default function Skills() {
         <motion.div ref={ref} className="text-center mb-16"
           initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
           <div className="font-mono text-purple-400 text-sm tracking-widest mb-3">// CHAPTER 02</div>
-          <h2 className="font-orbitron font-black text-4xl md:text-6xl glow-purple text-purple-400 mb-4">SKILL MATRIX</h2>
-          <p className="text-gray-400">Interactive control room — hover to activate each module</p>
+          <h2 className="font-orbitron font-black text-4xl md:text-6xl glow-purple text-purple-400 mb-6">SKILL MATRIX</h2>
+          <p className="text-gray-300">Interactive control room — hover to activate each module</p>
         </motion.div>
 
         {/* Category selector */}

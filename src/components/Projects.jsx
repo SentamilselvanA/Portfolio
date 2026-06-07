@@ -163,8 +163,8 @@ export default function Projects() {
         <motion.div ref={ref} className="text-center mb-8"
           initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
           <div className="font-mono text-pink-400 text-sm tracking-widest mb-3">// CHAPTER 03</div>
-          <h2 className="font-orbitron font-black text-4xl md:text-6xl glow-pink text-pink-400 mb-4">PROJECT GALAXY</h2>
-          <p className="text-gray-400">Each planet is a world I built. Click to explore.</p>
+          <h2 className="font-orbitron font-black text-4xl md:text-6xl glow-pink text-pink-400 mb-6">PROJECT GALAXY</h2>
+          <p className="text-gray-300">Each planet is a world I built. Click to explore.</p>
         </motion.div>
 
         <div className="relative flex items-center justify-center" style={{ height: 600 }}>

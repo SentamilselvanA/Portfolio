@@ -47,8 +47,8 @@ export default function Contact() {
         <motion.div ref={ref} className="text-center mb-16"
           initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
           <div className="font-mono text-cyan-400 text-sm tracking-widest mb-3">// CHAPTER 06</div>
-          <h2 className="font-orbitron font-black text-4xl md:text-6xl glow-cyan text-cyan-400 mb-4">TRANSMISSION HUB</h2>
-          <p className="text-gray-400">Open a secure channel. Send a transmission.</p>
+          <h2 className="font-orbitron font-black text-4xl md:text-6xl glow-cyan text-cyan-400 mb-6">TRANSMISSION HUB</h2>
+          <p className="text-gray-300">Open a secure channel. Send a transmission.</p>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-8">

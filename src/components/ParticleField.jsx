@@ -42,7 +42,7 @@ export default function ParticleField() {
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
         ctx.fillStyle = p.color
-        ctx.shadowBlur = 8
+        ctx.shadowBlur = 4
         ctx.shadowColor = p.color
         ctx.fill()
         ctx.shadowBlur = 0
@@ -58,7 +58,7 @@ export default function ParticleField() {
             ctx.beginPath()
             ctx.moveTo(particles[i].x, particles[i].y)
             ctx.lineTo(particles[j].x, particles[j].y)
-            ctx.strokeStyle = `rgba(0,245,255,${0.12 * (1 - d / 100)})`
+            ctx.strokeStyle = `rgba(0,245,255,${0.07 * (1 - d / 100)})`
             ctx.lineWidth = 0.5
             ctx.stroke()
           }
@@ -79,7 +79,7 @@ export default function ParticleField() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
-      style={{ opacity: 0.4 }}
+      style={{ opacity: 0.25 }}
     />
   )
 }

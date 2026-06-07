@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 const ROLES = ['Full Stack Developer', 'MERN Stack Developer', 'Problem Solver', 'Computer Science Student', 'Tech Enthusiast']
 
-function MagneticBtn({ children, href, onClick, className = '', style = {} }) {
+function MagneticBtn({ children, href, onClick, target, className = '', style = {} }) {
   const ref = useRef(null)
   const onMove = e => {
     const r = ref.current.getBoundingClientRect()
@@ -14,10 +14,17 @@ function MagneticBtn({ children, href, onClick, className = '', style = {} }) {
   const onLeave = () => { ref.current.style.transform = 'translate(0,0)' }
   const Tag = href ? 'a' : 'button'
   return (
-    <Tag ref={ref} href={href} onClick={onClick} target={href ? '_blank' : undefined}
-      onMouseMove={onMove} onMouseLeave={onLeave}
+    <Tag
+      ref={ref}
+      href={href}
+      onClick={onClick}
+      target={target ?? (href ? '_blank' : undefined)}
+      rel={href ? 'noopener noreferrer' : undefined}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
       className={`magnetic-btn inline-flex items-center gap-2 px-6 py-3 rounded-full font-mono font-semibold text-sm tracking-wider transition-all duration-300 ${className}`}
-      style={{ transition: 'transform 0.3s cubic-bezier(0.23,1,0.32,1)', ...style }}>
+      style={{ transition: 'transform 0.3s cubic-bezier(0.23,1,0.32,1)', ...style }}
+    >
       {children}
     </Tag>
   )
@@ -43,124 +50,147 @@ export default function Hero() {
   }, [])
 
   return (
-    <section id="hero" ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Rotating rings */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        {[300, 450, 600, 750].map((size, i) => (
-          <div key={i} className="absolute rounded-full border"
-            style={{
-              width: size, height: size,
-              borderColor: `rgba(0,245,255,${0.08 - i * 0.015})`,
-              animation: `${i % 2 === 0 ? 'rotate360' : 'counter-rotate'} ${20 + i * 8}s linear infinite`
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Main content */}
-      <div className="relative z-10 text-center px-4" style={{
-        transform: `perspective(1000px) rotateX(${mousePos.y * 5}deg) rotateY(${mousePos.x * 5}deg)`
-      }}>
-        {/* Status indicator */}
-        <motion.div className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-8 text-sm font-mono"
-          initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-          <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-          <span className="text-green-400">Available for opportunities</span>
-        </motion.div>
-
-        {/* Name */}
-        <motion.h1
-          className="font-orbitron font-black text-5xl md:text-8xl shimmer-text mb-4 leading-tight"
-          initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
-        >
-          SENTAMILSELVAN
-        </motion.h1>
-
-        {/* Animated role */}
-        <div className="h-10 flex items-center justify-center mb-8 overflow-hidden">
-          <AnimatePresence mode="wait">
-            <motion.p key={roleIdx}
-              className="font-mono text-xl md:text-2xl text-cyan-400 tracking-widest"
-              initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -30, opacity: 0 }}
-              transition={{ duration: 0.5 }}>
-              {`> ${ROLES[roleIdx]}`}
-            </motion.p>
-          </AnimatePresence>
+    <>
+      <section id="hero" ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Rotating rings */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          {[300, 450, 600, 750].map((size, i) => (
+            <div key={i} className="absolute rounded-full border"
+              style={{
+                width: size, height: size,
+                borderColor: `rgba(0,245,255,${0.08 - i * 0.015})`,
+                animation: `${i % 2 === 0 ? 'rotate360' : 'counter-rotate'} ${20 + i * 8}s linear infinite`
+              }}
+            />
+          ))}
         </div>
 
-        {/* Holographic card */}
-        <motion.div
-          className="glass gradient-border mx-auto max-w-sm p-6 mb-10 float"
-          initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.8 }}
-          style={{ background: 'rgba(0,245,255,0.03)' }}
-        >
-          <div className="scanlines relative">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center text-2xl font-orbitron font-black glow-box-cyan">
-                S
-              </div>
-              <div className="text-left">
-                <div className="font-orbitron text-cyan-400 font-bold">Sentamilselvan</div>
-                <div className="font-mono text-xs text-gray-400">Full Stack Developer</div>
-                <div className="font-mono text-xs text-purple-400">Dharmapuri, Tamil Nadu, India 🇮🇳</div>
-              </div>
-            </div>
-            {/* <div className="grid grid-cols-3 gap-2 text-center">
-              {[['MERN', 'Stack'], ['Java', 'Developer'], ['Open', 'Source']].map(([a, b], i) => (
-                <div key={i} className="glass p-2 rounded-lg">
-                  <div className="text-xs font-orbitron text-cyan-400">{a}</div>
-                  <div className="text-xs text-gray-500">{b}</div>
-                </div>
-              ))}
-            </div> */}
+        {/* Main content */}
+        <div className="relative z-10 text-center px-4" style={{
+          transform: `perspective(1000px) rotateX(${mousePos.y * 5}deg) rotateY(${mousePos.x * 5}deg)`
+        }}>
+          {/* Status indicator */}
+          <motion.div
+            className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-8 text-sm font-mono"
+            initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
+          >
+            {/* <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+            <span className="text-green-400">Available for opportunities</span> */}
+          </motion.div>
+
+          {/* Name */}
+          <motion.h1
+            className="font-orbitron font-black text-5xl md:text-8xl shimmer-text mb-4 leading-tight"
+            initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
+          >
+            SENTAMILSELVAN
+          </motion.h1>
+
+          {/* Animated role */}
+          <div className="h-10 flex items-center justify-center mb-8 overflow-hidden">
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={roleIdx}
+                className="font-mono text-xl md:text-2xl text-cyan-400 tracking-widest"
+                initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -30, opacity: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                {`> ${ROLES[roleIdx]}`}
+              </motion.p>
+            </AnimatePresence>
           </div>
-        </motion.div>
 
-        {/* Tagline */}
-        <motion.p className="font-mono text-sm text-gray-400 max-w-xl mx-auto mb-8 leading-relaxed"
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.85 }}>
-          Building scalable web applications, solving coding challenges, and continuously learning modern technologies to create impactful digital experiences.
-        </motion.p>
-
-        {/* Quick stats */}
-        <motion.div className="flex flex-wrap justify-center gap-3 mb-8"
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9 }}>
-          {[['170+', 'LeetCode'], ['1200+', 'CodeChef'], ['1200+', 'SkillRack'], ['B.E', 'CSE']].map(([val, label]) => (
-            <div key={label} className="glass px-3 py-2 rounded-lg text-center">
-              <div className="font-orbitron text-cyan-400 font-bold text-sm">{val}</div>
-              <div className="font-mono text-xs text-gray-500">{label}</div>
+          {/* Holographic card */}
+          <motion.div
+            className="glass gradient-border mx-auto max-w-sm p-6 mb-10 float"
+            initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.8 }}
+            style={{ background: 'rgba(0,245,255,0.03)' }}
+          >
+            <div className="scanlines relative">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center text-2xl font-orbitron font-black glow-box-cyan">
+                  S
+                </div>
+                <div className="text-left">
+                  <div className="font-orbitron text-cyan-400 font-bold">Sentamilselvan</div>
+                  <div className="font-mono text-xs text-gray-400">Full Stack Developer</div>
+                  <div className="font-mono text-xs text-purple-400">Dharmapuri, Tamil Nadu, India 🇮🇳</div>
+                </div>
+              </div>
             </div>
-          ))}
-        </motion.div>
+          </motion.div>
 
-        {/* Action buttons */}
-        <motion.div className="flex flex-wrap items-center justify-center gap-4"
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 }}>
-          <MagneticBtn href="#"
-            className="border border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 glow-box-cyan">
-            📄 Resume
-          </MagneticBtn>
-          <MagneticBtn onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-            className="border border-purple-500 text-purple-400 hover:bg-purple-500/10 glow-box-purple">
-            💬 Contact
-          </MagneticBtn>
-          <MagneticBtn href="https://github.com"
-            className="border border-pink-500 text-pink-400 hover:bg-pink-500/10 glow-box-pink">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-            GitHub
-          </MagneticBtn>
+          {/* Tagline */}
+          <motion.p
+            className="font-mono text-sm text-gray-300 max-w-xl mx-auto mb-8 leading-relaxed"
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.85 }}
+          >
+            Building scalable web applications, solving coding challenges, and continuously learning modern technologies to create impactful digital experiences.
+          </motion.p>
+
+          {/* Quick stats */}
+          <motion.div
+            className="flex flex-wrap justify-center gap-3 mb-8"
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9 }}
+          >
+            {[['170+', 'LeetCode'], ['1200+', 'CodeChef'], ['1200+', 'SkillRack'], ['B.E', 'CSE']].map(([val, label]) => (
+              <div key={label} className="glass px-3 py-2 rounded-lg text-center">
+                <div className="font-orbitron text-cyan-400 font-bold text-sm">{val}</div>
+                <div className="font-mono text-xs text-gray-500">{label}</div>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Action buttons */}
+          <motion.div
+            className="flex flex-wrap items-center justify-center gap-4"
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 }}
+          >
+            <MagneticBtn href="/resume.pdf" target="_blank" className="border border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 glow-box-cyan">
+              📄 Resume
+            </MagneticBtn>
+            <MagneticBtn
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              className="border border-purple-500 text-purple-400 hover:bg-purple-500/10 glow-box-purple"
+            >
+              💬 Contact
+            </MagneticBtn>
+            <MagneticBtn href="https://github.com" className="border border-pink-500 text-pink-400 hover:bg-pink-500/10 glow-box-pink">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+              </svg>
+              GitHub
+            </MagneticBtn>
+          </motion.div>
+        </div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }}
+        >
+          <span className="font-mono text-xs text-gray-500 tracking-widest">SCROLL</span>
+          <motion.div
+            className="w-px h-12 bg-gradient-to-b from-cyan-500 to-transparent"
+            animate={{ scaleY: [1, 0.5, 1], opacity: [1, 0.3, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
         </motion.div>
+      </section>
+
+      {/* Section divider */}
+      <div className="relative z-10 flex flex-col items-center" style={{ marginTop: 80, marginBottom: 80 }}>
+        <div style={{
+          width: '60%', height: 1,
+          background: 'linear-gradient(90deg, transparent, rgba(0,245,255,0.18), rgba(139,92,246,0.18), transparent)'
+        }} />
+        <div style={{
+          width: 6, height: 6, borderRadius: '50%', marginTop: -3,
+          background: 'rgba(0,245,255,0.5)',
+          boxShadow: '0 0 8px rgba(0,245,255,0.4)'
+        }} />
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }}>
-        <span className="font-mono text-xs text-gray-500 tracking-widest">SCROLL</span>
-        <motion.div className="w-px h-12 bg-gradient-to-b from-cyan-500 to-transparent"
-          animate={{ scaleY: [1, 0.5, 1], opacity: [1, 0.3, 1] }}
-          transition={{ duration: 2, repeat: Infinity }} />
-      </motion.div>
-    </section>
+    </>
   )
 }
