@@ -87,10 +87,10 @@ body {
 }
 
 /* Glow text */
-.glow-cyan { text-shadow: 0 0 14px rgba(0,245,255,0.8), 0 0 40px rgba(0,245,255,0.25); }
-.glow-purple { text-shadow: 0 0 14px rgba(139,92,246,0.8), 0 0 40px rgba(139,92,246,0.25); }
-.glow-gold { text-shadow: 0 0 14px rgba(251,191,36,0.8), 0 0 40px rgba(251,191,36,0.25); }
-.glow-pink { text-shadow: 0 0 14px rgba(236,72,153,0.8), 0 0 40px rgba(236,72,153,0.25); }
+.glow-cyan { text-shadow: 0 0 10px rgba(0,245,255,0.45), 0 0 28px rgba(0,245,255,0.12); }
+.glow-purple { text-shadow: 0 0 10px rgba(139,92,246,0.45), 0 0 28px rgba(139,92,246,0.12); }
+.glow-gold { text-shadow: 0 0 10px rgba(251,191,36,0.45), 0 0 28px rgba(251,191,36,0.12); }
+.glow-pink { text-shadow: 0 0 10px rgba(236,72,153,0.45), 0 0 28px rgba(236,72,153,0.12); }
 
 /* Glow box */
 .glow-box-cyan { box-shadow: 0 0 14px rgba(0,245,255,0.2), 0 0 40px rgba(0,245,255,0.06), inset 0 0 12px rgba(0,245,255,0.04); }
