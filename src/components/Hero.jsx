@@ -135,7 +135,7 @@ export default function Hero() {
             className="flex flex-wrap justify-center gap-3 mb-8"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9 }}
           >
-            {[['170+', 'LeetCode'], ['1200+', 'CodeChef'], ['1200+', 'SkillRack'], ['B.E', 'CSE']].map(([val, label]) => (
+            {[['200+', 'LeetCode'], ['1200+', 'CodeChef'], ['1200+', 'SkillRack'], ['B.E', 'CSE']].map(([val, label]) => (
               <div key={label} className="glass px-3 py-2 rounded-lg text-center">
                 <div className="font-orbitron text-cyan-400 font-bold text-sm">{val}</div>
                 <div className="font-mono text-xs text-gray-500">{label}</div>

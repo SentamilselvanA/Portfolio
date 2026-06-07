@@ -82,8 +82,37 @@ const PLATFORM_CARDS = [
   {
     platform: 'HackerRank', icon: '⭐', color: '#10b981',
     stats: [],
-    badges: ['5★ C++', '3★ C', '3★ Python', '3★ Java', '3★ SQL', '2★ Problem Solving'],
+    badges: [],
     bars: [],
+    langBadges: [
+      {
+        lang: 'C++', stars: 5, color: '#00599c',
+        svg: <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7"><path d="M16 2L2 9.5v13L16 30l14-7.5v-13L16 2z" fill="#00599c"/><text x="16" y="21" textAnchor="middle" fill="white" fontSize="11" fontWeight="bold" fontFamily="monospace">C++</text></svg>
+      },
+      {
+        lang: 'C', stars: 3, color: '#a8b9cc',
+        svg: <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7"><path d="M16 2L2 9.5v13L16 30l14-7.5v-13L16 2z" fill="#555"/><text x="16" y="21" textAnchor="middle" fill="#a8b9cc" fontSize="13" fontWeight="bold" fontFamily="monospace">C</text></svg>
+      },
+      {
+        lang: 'Python', stars: 3, color: '#3776ab',
+        svg: <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7">
+          <path d="M16 3c-3.5 0-5.8 1.5-5.8 1.5L10 8h6v1H7.5S5 9.2 5 13.5c0 4.4 2.4 4.2 2.4 4.2H9.5V15.5s-.1-2.4 2.4-2.4h4.1s2.3.04 2.3-2.2V5.3S18.1 3 16 3zm-1.5 1.5a.9.9 0 110 1.8.9.9 0 010-1.8z" fill="#3776ab"/>
+          <path d="M16 29c3.5 0 5.8-1.5 5.8-1.5L22 24h-6v-1h8.5s2.5-.2 2.5-4.5c0-4.4-2.4-4.2-2.4-4.2H22.5V16.5s.1 2.4-2.4 2.4h-4.1s-2.3-.04-2.3 2.2v4.6S13.9 29 16 29zm1.5-1.5a.9.9 0 110-1.8.9.9 0 010 1.8z" fill="#ffd43b"/>
+        </svg>
+      },
+      {
+        lang: 'Java', stars: 3, color: '#f89820',
+        svg: <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7"><path d="M12.2 22.5s-1.1.6.8.8c2.3.3 3.5.2 6-.2 0 0 .7.4 1.6.8-5.6 2.4-12.7-.1-8.4-1.4z" fill="#f89820"/><path d="M11.5 19.5s-1.2.9.7 1.1c2.5.3 4.5.3 7.9-.4 0 0 .5.5 1.2.8-7 2-14.7.2-9.8-1.5z" fill="#f89820"/><path d="M17.3 13.5c1.4 1.6-.4 3.1-.4 3.1s3.6-1.9 1.9-4.2c-1.5-2.1-2.7-3.2 3.7-6.8 0 0-10 2.5-5.2 7.9z" fill="#f89820"/><path d="M23.8 24.8s.8.7-.9 1.2c-3.3 1-13.6 1.3-16.5.04-1-.4.9-1 1.5-1.1.6-.1 1-.1 1-.1-1.2-.8-7.6 1.6-3.3 2.3 11.8 1.9 21.5-.9 18.2-2.3z" fill="#f89820"/><path d="M12.8 16.4s-5.5 1.3-1.9 1.8c1.5.2 4.4.1 7.2-.1 2.2-.2 4.5-.5 4.5-.5s-.8.3-1.4.7c-5.5 1.4-16.1.8-13.1-.7 2.6-1.3 4.7-1.2 4.7-1.2z" fill="#f89820"/><path d="M20.7 21.2c5.6-2.9 3-5.7 1.2-5.3-.4.1-.6.2-.6.2s.2-.3.5-.4c3.7-1.3 6.5 3.8-1.1 5.8 0 0 .1-.1 0-.3z" fill="#f89820"/><path d="M19 3s3.1 3.1-3 7.9c-5 3.9-1.1 6.2 0 8.7-2.9-2.6-5-4.9-3.6-7C14.2 9.6 20.5 8 19 3z" fill="#f89820"/></svg>
+      },
+      {
+        lang: 'SQL', stars: 3, color: '#e38c00',
+        svg: <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7"><ellipse cx="16" cy="9" rx="11" ry="4" fill="#e38c00" opacity="0.9"/><path d="M5 9v5c0 2.2 4.9 4 11 4s11-1.8 11-4V9" fill="#e38c00" opacity="0.7"/><path d="M5 14v5c0 2.2 4.9 4 11 4s11-1.8 11-4v-5" fill="#e38c00" opacity="0.5"/><path d="M5 19v4c0 2.2 4.9 4 11 4s11-1.8 11-4v-4" fill="#e38c00" opacity="0.35"/></svg>
+      },
+      {
+        lang: 'Problem\nSolving', stars: 2, color: '#10b981',
+        svg: <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7"><circle cx="16" cy="16" r="13" stroke="#10b981" strokeWidth="2" fill="#10b98118"/><path d="M11 16l3.5 3.5L21 11" stroke="#10b981" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+      },
+    ],
   },
 ]
 
@@ -147,13 +176,34 @@ export default function CodingProfiles() {
                 </div>
               )}
 
-              {platform.badges && (
+              {platform.badges && platform.badges.length > 0 && (
                 <div className="flex flex-wrap gap-2 mb-4">
                   {platform.badges.map(b => (
                     <span key={b} className="px-2 py-1 rounded-full font-mono text-xs"
                       style={{ background: `${platform.color}11`, border: `1px solid ${platform.color}33`, color: platform.color }}>
                       {b}
                     </span>
+                  ))}
+                </div>
+              )}
+
+              {platform.langBadges && (
+                <div className="grid grid-cols-3 gap-3">
+                  {platform.langBadges.map(({ lang, stars, color, svg }) => (
+                    <div key={lang}
+                      className="flex flex-col items-center gap-2 p-3 rounded-xl transition-transform hover:scale-105"
+                      style={{ background: `${color}0d`, border: `1px solid ${color}28` }}
+                    >
+                      {svg}
+                      <span className="font-mono text-xs font-bold text-center leading-tight" style={{ color }}>
+                        {lang}
+                      </span>
+                      <div className="flex gap-0.5">
+                        {Array.from({ length: 5 }).map((_, si) => (
+                          <span key={si} style={{ color: si < stars ? '#fbbf24' : 'rgba(255,255,255,0.12)', fontSize: 10 }}>★</span>
+                        ))}
+                      </div>
+                    </div>
                   ))}
                 </div>
               )}

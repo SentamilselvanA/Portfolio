@@ -23,8 +23,8 @@ const MILESTONES = [
     icon: '⚡', color: '#fbbf24', side: 'right'
   },
   {
-    year: '2024', title: '170+ LeetCode & 1200+ CodeChef',
-    desc: 'Solved 170+ LeetCode problems and 1200+ CodeChef & SkillRack problems, earning a Diamond Badge and ranking 14849 on SkillRack.',
+    year: '2024', title: '200+ LeetCode & 1200+ CodeChef',
+    desc: 'Solved 200+ LeetCode problems and 1200+ CodeChef & SkillRack problems, earning a Diamond Badge and ranking 14849 on SkillRack.',
     icon: '🧩', color: '#10b981', side: 'left'
   },
   {

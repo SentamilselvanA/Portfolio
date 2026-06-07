@@ -8,7 +8,7 @@ const ACHIEVEMENTS = [
   { icon: '📚', title: 'Mastering DSA with C & C++', org: 'Udemy', year: '2024', color: '#fbbf24', type: 'cert' },
   { icon: '🐍', title: 'Python for Complete Beginners', org: 'Udemy', year: '2024', color: '#3776ab', type: 'cert' },
   { icon: '☕', title: 'Java for Beginners', org: 'Udemy', year: '2024', color: '#f89820', type: 'cert' },
-  { icon: '🧩', title: '170+ LeetCode Solved', org: 'LeetCode', year: '2024', color: '#ffa116', type: 'achievement' },
+  { icon: '🧩', title: '200+ LeetCode Solved', org: 'LeetCode', year: '2024', color: '#ffa116', type: 'achievement' },
   { icon: '🏆', title: '1200+ SkillRack Problems', org: 'SkillRack', year: '2024', color: '#00f5ff', type: 'achievement' },
 ]
 
