@@ -56,24 +56,42 @@ function ContributionGrid() {
   )
 }
 
-const STATS = [
-  { platform: 'GitHub', icon: '🐙', color: '#ffffff', stats: [
-    { label: 'Repositories', value: 25, suffix: '+' },
-    { label: 'Commits', value: 400, suffix: '+' },
-    { label: 'Stars', value: 12, suffix: '' },
-  ]},
-  { platform: 'LeetCode', icon: '🧩', color: '#ffa116', stats: [
-    { label: 'Problems', value: 200, suffix: '+' },
-    { label: 'Easy', value: 85, suffix: '' },
-    { label: 'Medium', value: 95, suffix: '' },
-  ]},
+const PLATFORM_CARDS = [
+  {
+    platform: 'LeetCode', icon: '🧩', color: '#ffa116',
+    stats: [
+      { label: 'Problems Solved', value: 170, suffix: '+' },
+    ],
+    bars: [['Arrays & Strings', 80], ['Dynamic Programming', 60], ['Trees & Graphs', 65]],
+  },
+  {
+    platform: 'CodeChef', icon: '👨‍🍳', color: '#8b5cf6',
+    stats: [
+      { label: 'Problems Solved', value: 1200, suffix: '+' },
+    ],
+    bars: [['Basic Programming', 95], ['Data Structures', 80], ['Algorithms', 75]],
+  },
+  {
+    platform: 'SkillRack', icon: '🏆', color: '#00f5ff',
+    stats: [
+      { label: 'Problems Solved', value: 1200, suffix: '+' },
+      { label: 'Certificates', value: 15, suffix: '+' },
+    ],
+    bars: [['C Programming', 90], ['Java', 80], ['Python', 78]],
+  },
+  {
+    platform: 'HackerRank', icon: '⭐', color: '#10b981',
+    stats: [],
+    badges: ['5★ C++', '3★ C', '3★ Python', '3★ Java', '3★ SQL', '2★ Problem Solving'],
+    bars: [],
+  },
 ]
 
-const BADGES = [
-  { label: 'Day Streak', value: 45, icon: '🔥', color: '#ef4444' },
-  { label: 'Acceptance', value: 68, icon: '✅', color: '#10b981', suffix: '%' },
-  { label: 'Global Rank', value: 150000, icon: '🌐', color: '#8b5cf6', prefix: '#' },
-  { label: 'Languages', value: 6, icon: '💬', color: '#00f5ff' },
+const QUICK_STATS = [
+  { label: 'LeetCode', value: 170, icon: '🧩', color: '#ffa116', suffix: '+' },
+  { label: 'CodeChef', value: 1200, icon: '👨‍🍳', color: '#8b5cf6', suffix: '+' },
+  { label: 'SkillRack', value: 1200, icon: '🏆', color: '#00f5ff', suffix: '+' },
+  { label: 'SkillRack Rank', value: 14849, icon: '📊', color: '#ec4899', prefix: '#' },
 ]
 
 export default function CodingProfiles() {
@@ -92,7 +110,7 @@ export default function CodingProfiles() {
 
         {/* Quick stat badges */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-          {BADGES.map((b, i) => (
+          {QUICK_STATS.map((b, i) => (
             <motion.div key={i} className="glass gradient-border p-5 text-center hover:scale-105 transition-transform"
               initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: i * 0.1, duration: 0.6 }}>
@@ -107,46 +125,58 @@ export default function CodingProfiles() {
 
         {/* Platform cards */}
         <div className="grid md:grid-cols-2 gap-6 mb-12">
-          {STATS.map((platform, pi) => (
+          {PLATFORM_CARDS.map((platform, pi) => (
             <motion.div key={pi} className="glass gradient-border p-6"
-              initial={{ opacity: 0, x: pi === 0 ? -40 : 40 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: 0.3 + pi * 0.2, duration: 0.8 }}>
-              <div className="flex items-center gap-3 mb-6">
+              initial={{ opacity: 0, x: pi % 2 === 0 ? -40 : 40 }} animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ delay: 0.3 + pi * 0.15, duration: 0.8 }}>
+              <div className="flex items-center gap-3 mb-4">
                 <span className="text-2xl">{platform.icon}</span>
                 <h3 className="font-orbitron font-bold text-xl" style={{ color: platform.color }}>{platform.platform}</h3>
               </div>
-              <div className="grid grid-cols-3 gap-4">
-                {platform.stats.map((s, i) => (
-                  <div key={i} className="text-center">
-                    <div className="font-orbitron text-2xl font-black" style={{ color: platform.color }}>
-                      <Counter target={s.value} suffix={s.suffix} />
-                    </div>
-                    <div className="font-mono text-xs text-gray-500 mt-1">{s.label}</div>
-                  </div>
-                ))}
-              </div>
 
-              {/* Skill breakdown bars */}
-              <div className="mt-6 space-y-2">
-                {(pi === 0
-                  ? [['JavaScript', 70], ['Python', 60], ['Java', 80]]
-                  : [['Array & Strings', 85], ['Dynamic Prog', 65], ['Trees & Graphs', 70]]
-                ).map(([name, pct]) => (
-                  <div key={name}>
-                    <div className="flex justify-between font-mono text-xs text-gray-400 mb-1">
-                      <span>{name}</span><span style={{ color: platform.color }}>{pct}%</span>
+              {platform.stats.length > 0 && (
+                <div className="flex gap-6 mb-4">
+                  {platform.stats.map((s, i) => (
+                    <div key={i}>
+                      <div className="font-orbitron text-2xl font-black" style={{ color: platform.color }}>
+                        <Counter target={s.value} suffix={s.suffix} />
+                      </div>
+                      <div className="font-mono text-xs text-gray-500 mt-1">{s.label}</div>
                     </div>
-                    <div className="h-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.06)' }}>
-                      <motion.div className="h-full rounded-full"
-                        style={{ background: `linear-gradient(90deg, ${platform.color}, ${platform.color}88)` }}
-                        initial={{ width: 0 }}
-                        animate={inView ? { width: `${pct}%` } : {}}
-                        transition={{ duration: 1.2, delay: 0.5 + pi * 0.2 }}
-                      />
+                  ))}
+                </div>
+              )}
+
+              {platform.badges && (
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {platform.badges.map(b => (
+                    <span key={b} className="px-2 py-1 rounded-full font-mono text-xs"
+                      style={{ background: `${platform.color}11`, border: `1px solid ${platform.color}33`, color: platform.color }}>
+                      {b}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {platform.bars.length > 0 && (
+                <div className="space-y-2">
+                  {platform.bars.map(([name, pct]) => (
+                    <div key={name}>
+                      <div className="flex justify-between font-mono text-xs text-gray-400 mb-1">
+                        <span>{name}</span><span style={{ color: platform.color }}>{pct}%</span>
+                      </div>
+                      <div className="h-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.06)' }}>
+                        <motion.div className="h-full rounded-full"
+                          style={{ background: `linear-gradient(90deg, ${platform.color}, ${platform.color}88)` }}
+                          initial={{ width: 0 }}
+                          animate={inView ? { width: `${pct}%` } : {}}
+                          transition={{ duration: 1.2, delay: 0.5 + pi * 0.15 }}
+                        />
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </motion.div>
           ))}
         </div>

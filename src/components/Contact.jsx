@@ -33,9 +33,12 @@ export default function Contact() {
 
   const LINKS = [
     { icon: '🐙', label: 'GitHub', href: 'https://github.com', color: '#ffffff' },
-    { icon: '💼', label: 'LinkedIn', href: 'https://linkedin.com', color: '#0077b5' },
-    { icon: '📧', label: 'Email', href: 'mailto:sentamilselvan@email.com', color: '#00f5ff' },
-    { icon: '🧩', label: 'LeetCode', href: 'https://leetcode.com', color: '#ffa116' },
+    { icon: '💼', label: 'LinkedIn', href: 'https://www.linkedin.com/in/sentamil-selvan-736760327/', color: '#0077b5' },
+    { icon: '📧', label: 'Email', href: 'mailto:your@email.com', color: '#00f5ff' },
+    { icon: '🧩', label: 'LeetCode', href: 'https://leetcode.com/u/sentamilselvan001/', color: '#ffa116' },
+    { icon: '👨‍🍳', label: 'CodeChef', href: 'https://www.codechef.com/users/sentamilselvan', color: '#8b5cf6' },
+    { icon: '⭐', label: 'HackerRank', href: 'https://www.hackerrank.com/profile/sentamilselvan_2', color: '#10b981' },
+    { icon: '🏆', label: 'SkillRack', href: 'https://www.skillrack.com/faces/resume.xhtml?id=515071', color: '#00f5ff' },
   ]
 
   return (

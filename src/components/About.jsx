@@ -2,12 +2,36 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 
 const MILESTONES = [
-  { year: '2020', title: 'Started Programming', desc: 'Discovered the world of code. Wrote my first "Hello, World!" and never looked back.', icon: '🚀', color: '#00f5ff', side: 'left' },
-  { year: '2021', title: 'Learned Java', desc: 'Dived deep into OOP concepts, data structures, and algorithms with Java as the foundation.', icon: '☕', color: '#8b5cf6', side: 'right' },
-  { year: '2022', title: 'Started Web Development', desc: 'Discovered HTML, CSS, JavaScript — the holy trinity of the web. Built my first interactive pages.', icon: '🌐', color: '#ec4899', side: 'left' },
-  { year: '2023', title: 'Built MERN Projects', desc: 'Mastered React, Node.js, Express, and MongoDB. Transformed ideas into full-stack applications.', icon: '⚡', color: '#fbbf24', side: 'right' },
-  { year: '2024', title: 'Solved 200+ Problems', desc: 'LeetCode grind mode: Data structures, algorithms, and competitive programming challenges conquered.', icon: '🧩', color: '#10b981', side: 'left' },
-  { year: 'NOW', title: 'Preparing For Career', desc: 'Building impactful products and seeking opportunities to create at scale with amazing teams.', icon: '🎯', color: '#00f5ff', side: 'right' },
+  {
+    year: '2021–2022', title: 'SSLC — 84.6%',
+    desc: 'Completed secondary education at Government High School, Muthanoor with 84.6%, building a strong foundation for higher studies.',
+    icon: '📚', color: '#00f5ff', side: 'left'
+  },
+  {
+    year: '2023–2024', title: 'HSC — 87.6%',
+    desc: 'Achieved 87.6% in Higher Secondary Certificate at Government Model School, Dharmapuri, excelling in Science stream.',
+    icon: '🏫', color: '#8b5cf6', side: 'right'
+  },
+  {
+    year: '2024', title: 'B.E CSE @ Sri Eshwar',
+    desc: 'Joined Sri Eshwar College of Engineering for B.E Computer Science and Engineering. Currently maintaining a CGPA of 7.83 (till 3rd semester).',
+    icon: '🎓', color: '#ec4899', side: 'left'
+  },
+  {
+    year: '2024', title: 'Full Stack Development',
+    desc: 'Mastered the MERN stack — React, Node.js, Express, MongoDB. Built real-world projects including a Skill Gap Analyzer and AlgoVision.',
+    icon: '⚡', color: '#fbbf24', side: 'right'
+  },
+  {
+    year: '2024', title: '170+ LeetCode & 1200+ CodeChef',
+    desc: 'Solved 170+ LeetCode problems and 1200+ CodeChef & SkillRack problems, earning a Diamond Badge and ranking 14849 on SkillRack.',
+    icon: '🧩', color: '#10b981', side: 'left'
+  },
+  {
+    year: 'NOW', title: 'Preparing For Career',
+    desc: 'Building impactful products, earning certifications, and seeking opportunities to grow as a software engineer at scale.',
+    icon: '🎯', color: '#00f5ff', side: 'right'
+  },
 ]
 
 function TimelineItem({ item, index }) {
@@ -63,7 +87,7 @@ export default function About() {
           initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
           <div className="font-mono text-cyan-400 text-sm tracking-widest mb-3">// CHAPTER 01</div>
           <h2 className="font-orbitron font-black text-4xl md:text-6xl glow-cyan text-cyan-400 mb-4">MY JOURNEY</h2>
-          <p className="text-gray-400 max-w-xl mx-auto">Every great developer has a story. Here's mine — milestones that shaped who I am.</p>
+          <p className="text-gray-400 max-w-2xl mx-auto">Passionate CSE student at Sri Eshwar College of Engineering, focused on Full Stack Development, DSA, and Software Engineering — transforming ideas into real-world applications.</p>
         </motion.div>
 
         {/* Timeline */}

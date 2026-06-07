@@ -2,26 +2,33 @@ import { useState, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 
 const SKILLS = {
+  Programming: [
+    { name: 'C', level: 80, icon: '🔵', color: '#a8b9cc', projects: ['DSA Practice', 'Competitive Coding'] },
+    { name: 'C++', level: 82, icon: '➕', color: '#00599c', projects: ['DSA Practice', 'SkillRack'] },
+    { name: 'Python', level: 78, icon: '🐍', color: '#3776ab', projects: ['Battery Fault Prediction', 'Udemy'] },
+    { name: 'Java', level: 80, icon: '☕', color: '#f89820', projects: ['OOP Projects', 'HackerRank'] },
+    { name: 'JavaScript', level: 85, icon: '⚡', color: '#f7df1e', projects: ['AlgoVision', 'Skill Gap Analyzer'] },
+  ],
   Frontend: [
-    { name: 'React', level: 88, icon: '⚛️', color: '#61dafb', projects: ['Student Mgmt', 'Event Platform', 'Dance App'] },
-    { name: 'JavaScript', level: 85, icon: '⚡', color: '#f7df1e', projects: ['Weather App', 'Expense Tracker'] },
+    { name: 'React.js', level: 85, icon: '⚛️', color: '#61dafb', projects: ['AlgoVision', 'Skill Gap Analyzer'] },
     { name: 'HTML', level: 95, icon: '🌐', color: '#e34f26', projects: ['All Projects'] },
     { name: 'CSS', level: 90, icon: '🎨', color: '#1572b6', projects: ['All Projects'] },
-    { name: 'Tailwind', level: 85, icon: '💨', color: '#38bdf8', projects: ['Dance App', 'Portfolio'] },
+    { name: 'Tailwind', level: 85, icon: '💨', color: '#38bdf8', projects: ['Skill Gap Analyzer', 'Portfolio'] },
   ],
   Backend: [
-    { name: 'Node.js', level: 82, icon: '🟩', color: '#339933', projects: ['Student Mgmt', 'Event Platform'] },
-    { name: 'Express.js', level: 80, icon: '🛤️', color: '#ffffff', projects: ['REST APIs', 'Event Platform'] },
+    { name: 'Node.js', level: 82, icon: '🟩', color: '#339933', projects: ['Skill Gap Analyzer'] },
+    { name: 'Express.js', level: 80, icon: '🛤️', color: '#ffffff', projects: ['REST APIs', 'Skill Gap Analyzer'] },
   ],
   Database: [
-    { name: 'MongoDB', level: 78, icon: '🍃', color: '#47a248', projects: ['Student Mgmt', 'Expense Tracker'] },
-    { name: 'MySQL', level: 75, icon: '🐬', color: '#00758f', projects: ['Java Projects'] },
+    { name: 'MongoDB', level: 78, icon: '🍃', color: '#47a248', projects: ['Skill Gap Analyzer'] },
+    { name: 'MySQL', level: 75, icon: '🐬', color: '#00758f', projects: ['HackerRank SQL', 'Projects'] },
   ],
   Tools: [
     { name: 'Git', level: 85, icon: '🔀', color: '#f05032', projects: ['All Projects'] },
-    { name: 'GitHub', level: 88, icon: '🐙', color: '#ffffff', projects: ['Open Source'] },
-    { name: 'Postman', level: 80, icon: '📮', color: '#ef5b25', projects: ['API Testing'] },
+    { name: 'GitHub', level: 88, icon: '🐙', color: '#ffffff', projects: ['All Projects'] },
     { name: 'VS Code', level: 95, icon: '💻', color: '#007acc', projects: ['Daily Driver'] },
+    { name: 'Vite', level: 80, icon: '⚡', color: '#646cff', projects: ['Portfolio', 'React Apps'] },
+    { name: 'Canva', level: 75, icon: '🖌️', color: '#00c4cc', projects: ['Design Work'] },
   ],
 }
 
@@ -101,7 +108,7 @@ function SkillOrb({ skill, index }) {
 }
 
 export default function Skills() {
-  const [activeCategory, setActiveCategory] = useState('Frontend')
+  const [activeCategory, setActiveCategory] = useState('Programming')
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
 

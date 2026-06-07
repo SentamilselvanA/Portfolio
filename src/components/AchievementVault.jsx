@@ -2,14 +2,14 @@ import { useState, useRef } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 
 const ACHIEVEMENTS = [
-  { icon: '🏆', title: 'MERN Stack Certification', org: 'Udemy', year: '2023', color: '#fbbf24', type: 'cert' },
-  { icon: '☕', title: 'Java Programming', org: 'NPTEL / Oracle', year: '2022', color: '#00f5ff', type: 'cert' },
-  { icon: '⚛️', title: 'React Developer', org: 'Meta / Coursera', year: '2023', color: '#61dafb', type: 'cert' },
-  { icon: '🥇', title: 'Hackathon Finalist', org: 'CodeHack 2023', year: '2023', color: '#ec4899', type: 'hackathon' },
-  { icon: '🧩', title: '200+ LeetCode Solved', org: 'LeetCode', year: '2024', color: '#ffa116', type: 'achievement' },
-  { icon: '🎓', title: 'B.Tech Computer Science', org: 'University', year: '2025', color: '#8b5cf6', type: 'academic' },
-  { icon: '🏅', title: 'Coding Contest Top 10%', org: 'HackerRank', year: '2024', color: '#10b981', type: 'contest' },
-  { icon: '⭐', title: 'Open Source Contributor', org: 'GitHub', year: '2024', color: '#ffffff', type: 'achievement' },
+  { icon: '🥇', title: 'SQL Basic Certification', org: 'HackerRank', year: '2024', color: '#10b981', type: 'cert' },
+  { icon: '🥈', title: 'SQL Intermediate Certification', org: 'HackerRank', year: '2024', color: '#10b981', type: 'cert' },
+  { icon: '🥉', title: 'SQL Advanced Certification', org: 'HackerRank', year: '2024', color: '#10b981', type: 'cert' },
+  { icon: '📚', title: 'Mastering DSA with C & C++', org: 'Udemy', year: '2024', color: '#fbbf24', type: 'cert' },
+  { icon: '🐍', title: 'Python for Complete Beginners', org: 'Udemy', year: '2024', color: '#3776ab', type: 'cert' },
+  { icon: '☕', title: 'Java for Beginners', org: 'Udemy', year: '2024', color: '#f89820', type: 'cert' },
+  { icon: '🧩', title: '170+ LeetCode Solved', org: 'LeetCode', year: '2024', color: '#ffa116', type: 'achievement' },
+  { icon: '🏆', title: '1200+ SkillRack Problems', org: 'SkillRack', year: '2024', color: '#00f5ff', type: 'achievement' },
 ]
 
 const VAULT_GEARS = [
@@ -34,7 +34,6 @@ export default function AchievementVault() {
           <p className="text-gray-400">Classified credentials. Access requires authorization.</p>
         </motion.div>
 
-        {/* Vault door */}
         {!open && (
           <motion.div
             className="relative max-w-2xl mx-auto h-80 rounded-2xl overflow-hidden cursor-pointer"
@@ -43,11 +42,9 @@ export default function AchievementVault() {
             transition={{ delay: 0.3, duration: 0.8 }}
             onClick={() => setOpen(true)}
           >
-            {/* Vault bg */}
             <div className="absolute inset-0 rounded-2xl overflow-hidden"
               style={{ background: 'linear-gradient(135deg, #1a1a2e, #16213e, #0f0f23)', border: '2px solid rgba(251,191,36,0.4)', boxShadow: '0 0 40px rgba(251,191,36,0.2)' }}>
 
-              {/* Decorative gears */}
               {VAULT_GEARS.map((g, i) => (
                 <div key={i} className="absolute opacity-10"
                   style={{ width: g.size, height: g.size, left: `${g.x}%`, top: `${g.y}%`, transform: 'translate(-50%,-50%)' }}>
@@ -56,7 +53,6 @@ export default function AchievementVault() {
                 </div>
               ))}
 
-              {/* Center combination lock */}
               <div className="absolute inset-0 flex flex-col items-center justify-center">
                 <motion.div className="w-32 h-32 rounded-full border-4 border-yellow-400 flex items-center justify-center mb-4"
                   style={{ boxShadow: '0 0 30px rgba(251,191,36,0.4)' }}
@@ -71,34 +67,29 @@ export default function AchievementVault() {
                 <div className="font-orbitron text-yellow-400 font-bold text-lg mb-1">CLASSIFIED VAULT</div>
                 <div className="font-mono text-yellow-300/60 text-sm">CLICK TO AUTHENTICATE</div>
 
-                {/* Tick marks */}
                 {Array.from({ length: 12 }).map((_, i) => (
                   <div key={i} className="absolute w-px h-3 bg-yellow-400/30"
                     style={{ top: '50%', left: '50%', transformOrigin: '0 -60px', transform: `rotate(${i * 30}deg) translateX(-50%)` }} />
                 ))}
               </div>
 
-              {/* Door seam */}
               <div className="absolute left-1/2 top-0 bottom-0 w-px bg-yellow-400/40" />
               <div className="absolute top-1/2 left-0 right-0 h-px bg-yellow-400/10" />
             </div>
           </motion.div>
         )}
 
-        {/* Vault open - achievements reveal */}
         <AnimatePresence>
           {open && (
             <motion.div
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
             >
-              {/* Door opening animation */}
               <motion.div className="relative max-w-2xl mx-auto h-20 mb-8 overflow-hidden flex items-center justify-center"
                 initial={{ opacity: 1 }} animate={{ opacity: 0 }} transition={{ duration: 0.8 }}>
                 <div className="font-orbitron text-green-400 tracking-widest">🔓 ACCESS GRANTED</div>
               </motion.div>
 
-              {/* Achievement cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {ACHIEVEMENTS.map((a, i) => (
                   <motion.div key={i} className="glass gradient-border p-5 text-center hover:scale-105 transition-all cursor-default group"
