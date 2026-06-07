@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 const ROLES = ['Full Stack Developer', 'MERN Stack Developer', 'Problem Solver', 'Computer Science Student', 'Tech Enthusiast']
 
-function MagneticBtn({ children, href, onClick, target, className = '', style = {} }) {
+function MagneticBtn({ children, href, onClick, target, download, className = '', style = {} }) {
   const ref = useRef(null)
   const onMove = e => {
     const r = ref.current.getBoundingClientRect()
@@ -20,6 +20,7 @@ function MagneticBtn({ children, href, onClick, target, className = '', style = 
       onClick={onClick}
       target={target ?? (href ? '_blank' : undefined)}
       rel={href ? 'noopener noreferrer' : undefined}
+      download={download}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
       className={`magnetic-btn inline-flex items-center gap-2 px-6 py-3 rounded-full font-mono font-semibold text-sm tracking-wider transition-all duration-300 ${className}`}
@@ -147,7 +148,7 @@ export default function Hero() {
             className="flex flex-wrap items-center justify-center gap-4"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 }}
           >
-            <MagneticBtn href="/resume.pdf" target="_blank" className="border border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 glow-box-cyan">
+            <MagneticBtn href="/resume.pdf" target="_blank" download="Sentamilselvan_Resume.pdf" className="border border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 glow-box-cyan">
               📄 Resume
             </MagneticBtn>
             <MagneticBtn
