@@ -6,7 +6,7 @@ const MILESTONES = [
   { year: '2023–2024', title: 'HSC — 87.6%', desc: 'Achieved 87.6% in Higher Secondary Certificate at Government Model School, Dharmapuri, excelling in Science stream.', icon: '🏫', color: '#8b5cf6', side: 'right' },
   { year: '2024', title: 'B.E CSE @ Sri Eshwar', desc: 'Joined Sri Eshwar College of Engineering for B.E Computer Science and Engineering. Currently maintaining a CGPA of 7.83 (till 3rd semester).', icon: '🎓', color: '#ec4899', side: 'left' },
   { year: '2024', title: 'Full Stack Development', desc: 'Mastered the MERN stack — React, Node.js, Express, MongoDB. Built real-world projects including a Skill Gap Analyzer and AlgoVision.', icon: '⚡', color: '#fbbf24', side: 'right' },
-  { year: '2024', title: '170+ LeetCode & 1200+ CodeChef', desc: 'Solved 170+ LeetCode problems and 1200+ CodeChef & SkillRack problems, earning a Diamond Badge and ranking 14849 on SkillRack.', icon: '🧩', color: '#10b981', side: 'left' },
+  { year: '2024', title: '200+ LeetCode & 1200+ CodeChef', desc: 'Solved 200+ LeetCode problems and 1200+ CodeChef & SkillRack problems, earning a Diamond Badge and ranking 14849 on SkillRack.', icon: '🧩', color: '#10b981', side: 'left' },
   { year: 'NOW', title: 'Preparing For Career', desc: 'Building impactful products, earning certifications, and seeking opportunities to grow as a software engineer at scale.', icon: '🎯', color: '#00f5ff', side: 'right' },
 ]
 
