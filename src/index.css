@@ -130,14 +130,20 @@ body {
 
 /* Animated gradient bg */
 .animated-bg {
-  background: linear-gradient(135deg, #010205 0%, #030810 25%, #010205 50%, #04030c 75%, #010205 100%);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(0,245,255,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 60%, rgba(139,92,246,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 100%, rgba(236,72,153,0.05) 0%, transparent 50%),
+    linear-gradient(160deg, #010208 0%, #04021a 25%, #010510 50%, #08020f 75%, #010208 100%);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 400% 400%;
+  animation: gradientShift 20s ease infinite;
 }
 
 @keyframes gradientShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%   { background-position: 0% 0%,   0% 0%,   0% 0%,   0%   30%; }
+  33%  { background-position: 0% 0%,   0% 0%,   0% 0%,   80%  0%;  }
+  66%  { background-position: 0% 0%,   0% 0%,   0% 0%,   100% 70%; }
+  100% { background-position: 0% 0%,   0% 0%,   0% 0%,   0%   30%; }
 }
 
 /* Float animation */
@@ -356,8 +362,8 @@ body {
 .ambient-orb {
   position: fixed;
   border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.07;
+  filter: blur(90px);
+  opacity: 0.10;
   pointer-events: none;
   z-index: 0;
 }
