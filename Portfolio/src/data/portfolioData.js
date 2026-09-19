@@ -20,6 +20,7 @@ const _PERSONAL = {
   location: 'Dharmapuri, Tamil Nadu, India',
   email: 'sentamilselvan001@gmail.com',
   phone: '+91 XXXXXXXXXX',
+  cgpa: '7.83',
   bio: 'Passionate CSE student at Sri Eshwar College of Engineering, focused on Full Stack Development, DSA, and Software Engineering — transforming ideas into real-world applications.',
   tagline: 'Building scalable web applications, solving coding challenges, and continuously learning modern technologies to create impactful digital experiences.',
   available: true,
@@ -124,7 +125,7 @@ const _CODING_STATS = {
   platforms: [
     {
       platform: 'LeetCode', icon: '🧩', color: '#ffa116',
-      stats: [{ label: 'Problems Solved', value: 200, suffix: '+' }],
+      stats: [{ label: 'Problems Solved', value: 350, suffix: '+' }],
       bars: [['Arrays & Strings', 80], ['Dynamic Programming', 60], ['Trees & Graphs', 65]],
       link: 'https://leetcode.com/u/sentamilselvan001/',
     },
@@ -142,7 +143,15 @@ const _CODING_STATS = {
     },
     {
       platform: 'HackerRank', icon: '⭐', color: '#10b981',
-      stats: [], bars: [], langBadges: true,
+      stats: [], bars: [],
+      langBadges: [
+        { lang: 'C++',      stars: 5, color: '#00599c' },
+        { lang: 'C',        stars: 3, color: '#a8b9cc' },
+        { lang: 'Python',   stars: 3, color: '#3776ab' },
+        { lang: 'Java',     stars: 3, color: '#f89820' },
+        { lang: 'SQL',      stars: 3, color: '#e38c00' },
+        { lang: 'Prob.Sol', stars: 2, color: '#10b981' },
+      ],
       link: 'https://www.hackerrank.com/profile/sentamilselvan_2',
     },
     {

@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { CODING_STATS } from '../../data/portfolioData'
+import { usePortfolioData } from '../../hooks/usePortfolioData'
 
 function Counter({ target, suffix = '', prefix = '', duration = 2000 }) {
   const [count, setCount] = useState(0)
@@ -21,18 +21,10 @@ function Counter({ target, suffix = '', prefix = '', duration = 2000 }) {
   return <span ref={ref}>{prefix}{count}{suffix}</span>
 }
 
-const LANG_BADGES = [
-  { lang: 'C++',      stars: 5, color: '#00599c' },
-  { lang: 'C',        stars: 3, color: '#a8b9cc' },
-  { lang: 'Python',   stars: 3, color: '#3776ab' },
-  { lang: 'Java',     stars: 3, color: '#f89820' },
-  { lang: 'SQL',      stars: 3, color: '#e38c00' },
-  { lang: 'Prob.Sol', stars: 2, color: '#10b981' },
-]
-
 export default function ProfessionalCodingProfiles() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
+  const { coding: CODING_STATS } = usePortfolioData()
 
   return (
     <section id="p-profiles" className="py-20 px-4" style={{ background: '#faf7ff' }}>
@@ -102,9 +94,9 @@ export default function ProfessionalCodingProfiles() {
                 </div>
               )}
 
-              {platform.langBadges && (
+              {platform.langBadges?.length > 0 && (
                 <div className="grid grid-cols-3 gap-2">
-                  {LANG_BADGES.map(({ lang, stars, color }) => (
+                  {platform.langBadges.map(({ lang, stars, color }) => (
                     <div key={lang} className="flex flex-col items-center gap-1.5 p-2.5 rounded-xl"
                       style={{ background: '#faf7ff', border: '1px solid #eee5f5' }}>
                       <span className="font-bold text-sm" style={{ color }}>{lang}</span>

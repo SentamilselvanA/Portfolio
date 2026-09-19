@@ -44,6 +44,7 @@ export function useAdminData() {
     setData(prev => {
       const next = { ...prev, [section]: value }
       localStorage.setItem(KEY, JSON.stringify(next))
+      window.dispatchEvent(new Event('portfolioDataUpdated'))
       return next
     })
   }, [])
@@ -51,6 +52,7 @@ export function useAdminData() {
   const reset = useCallback(() => {
     const d = defaults()
     localStorage.setItem(KEY, JSON.stringify(d))
+    window.dispatchEvent(new Event('portfolioDataUpdated'))
     setData(d)
   }, [])
 

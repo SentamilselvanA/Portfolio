@@ -1,39 +1,10 @@
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
-
-const PROJECTS = [
-  {
-    id: 0, name: 'Battery Fault Prediction', subtitle: 'ML-Powered Predictive System',
-    icon: '🔋', color: '#00f5ff', size: 120,
-    desc: 'Developed a machine learning-based battery fault prediction system capable of analyzing battery parameters and identifying potential faults before failure. Integrated predictive analytics models with Flask for a user-friendly interface.',
-    features: ['Battery parameter analysis', 'Fault prediction before failure', 'Flask web interface', 'ML model integration', 'Real-time analytics'],
-    tech: ['Machine Learning', 'Python', 'Flask'],
-    challenge: 'Training an accurate predictive model on imbalanced fault data while keeping the Flask API response time under 200ms.',
-    github: 'https://github.com', live: '#',
-  },
-  {
-    id: 1, name: 'AlgoVision', subtitle: 'Algorithm Visualizer Platform',
-    icon: '📈', color: '#8b5cf6', size: 110,
-    desc: 'Built an interactive educational platform to visualize data structures and algorithms through real-time animations and step-by-step execution. Implemented sorting and searching visualizations with dynamic code highlighting for better learning.',
-    features: ['Sorting algorithm visualizations', 'Searching algorithm animations', 'Step-by-step execution', 'Dynamic code highlighting', 'Speed control'],
-    tech: ['React.js', 'JavaScript', 'CSS3'],
-    challenge: 'Synchronizing animation frames with algorithm state transitions to ensure visualizations remain accurate at all speeds.',
-    github: 'https://github.com', live: '#',
-  },
-  {
-    id: 2, name: 'Skill Gap Analyzer', subtitle: 'MERN Stack Career Tool',
-    icon: '🧭', color: '#ec4899', size: 115,
-    desc: "Developed a MERN stack application that analyzes users' technical skills and recommends personalized learning paths. Implemented authentication, dashboards, responsive UI, and REST APIs.",
-    features: ['Skill gap analysis', 'Personalized learning paths', 'JWT authentication', 'Interactive dashboard', 'REST APIs', 'Responsive UI'],
-    tech: ['MongoDB', 'Express.js', 'React.js', 'Node.js'],
-    challenge: 'Designing a recommendation algorithm that maps user skill levels to relevant learning resources with meaningful gap analysis.',
-    github: 'https://github.com', live: '#',
-  },
-]
+import { usePortfolioData } from '../hooks/usePortfolioData'
 
 /* ── Desktop planet ── */
-function Planet({ project, index, onClick, isActive }) {
-  const angle = (index / PROJECTS.length) * Math.PI * 2
+function Planet({ project, index, total, onClick, isActive }) {
+  const angle = (index / total) * Math.PI * 2
   const orbitR = 200
   const x = Math.cos(angle) * orbitR
   const y = Math.sin(angle) * orbitR * 0.5
@@ -228,6 +199,7 @@ export default function Projects() {
   const [selected, setSelected] = useState(null)
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
+  const { projects: PROJECTS } = usePortfolioData()
 
   return (
     <section id="projects" className="relative py-16 md:py-24 px-4 z-10 overflow-hidden">
@@ -261,7 +233,7 @@ export default function Projects() {
             ))}
 
             {PROJECTS.map((p, i) => (
-              <Planet key={p.id} project={p} index={i} onClick={setSelected} isActive={selected?.id === p.id} />
+              <Planet key={p.id} project={p} index={i} total={PROJECTS.length} onClick={setSelected} isActive={selected?.id === p.id} />
             ))}
           </div>
           <div className="text-center mt-2">

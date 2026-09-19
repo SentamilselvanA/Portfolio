@@ -1,10 +1,11 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { ACHIEVEMENTS } from '../../data/portfolioData'
+import { usePortfolioData } from '../../hooks/usePortfolioData'
 
 export default function ProfessionalAchievements() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
+  const { achievements: ACHIEVEMENTS } = usePortfolioData()
 
   return (
     <section id="p-vault" className="py-20 px-4" style={{ background: '#ffffff' }}>

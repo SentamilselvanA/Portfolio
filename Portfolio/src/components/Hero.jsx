@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-
-const ROLES = ['Full Stack Developer', 'MERN Stack Developer', 'Problem Solver', 'Computer Science Student', 'Tech Enthusiast']
+import { usePortfolioData } from '../hooks/usePortfolioData'
 
 function MagneticBtn({ children, href, onClick, target, download, className = '', style = {} }) {
   const ref = useRef(null)
@@ -38,6 +37,7 @@ export default function Hero() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const [isMobile, setIsMobile] = useState(false)
   const sectionRef = useRef(null)
+  const { personal, roles, coding } = usePortfolioData()
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
@@ -47,9 +47,10 @@ export default function Hero() {
   }, [])
 
   useEffect(() => {
-    const t = setInterval(() => setRoleIdx(i => (i + 1) % ROLES.length), 2500)
+    if (!roles.length) return
+    const t = setInterval(() => setRoleIdx(i => (i + 1) % roles.length), 2500)
     return () => clearInterval(t)
-  }, [])
+  }, [roles.length])
 
   useEffect(() => {
     if (isMobile) return
@@ -61,11 +62,17 @@ export default function Hero() {
     return () => window.removeEventListener('mousemove', onMouse)
   }, [isMobile])
 
+  // Build quick stats from coding data
+  const quickStats = coding.quick.slice(0, 3).map(q => [
+    `${q.prefix || ''}${q.value}${q.suffix || ''}`, q.label
+  ]).concat([['B.E', 'CSE']])
+
+  const github = personal.social?.find?.(l => l.label === 'GitHub')
+
   return (
     <>
       <section id="hero" ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 py-20">
 
-        {/* Rotating rings — hidden on mobile to avoid overflow */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none hidden md:flex">
           {[300, 450, 600, 750].map((size, i) => (
             <div key={i} className="absolute rounded-full border"
@@ -78,33 +85,29 @@ export default function Hero() {
           ))}
         </div>
 
-        {/* Main content */}
         <div
           className="relative z-10 text-center w-full max-w-4xl mx-auto"
           style={isMobile ? {} : {
             transform: `perspective(1000px) rotateX(${mousePos.y * 5}deg) rotateY(${mousePos.x * 5}deg)`
           }}
         >
-          {/* Status badge */}
           <motion.div
             className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-6 text-sm font-mono"
             initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
           >
             <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            <span className="text-green-400">Available for opportunities</span>
+            <span className="text-green-400">{personal.available ? 'Available for opportunities' : 'Not available right now'}</span>
           </motion.div>
 
-          {/* Name */}
           <motion.h1
             className="font-orbitron font-black shimmer-text leading-tight mb-4 w-full"
             style={{ fontSize: 'clamp(1.4rem, 4.2vw, 3.8rem)', whiteSpace: 'nowrap', overflow: 'visible' }}
             initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
           >
-            SENTAMILSELVAN
+            {personal.name.toUpperCase()}
           </motion.h1>
 
-          {/* Animated role */}
           <div className="h-10 flex items-center justify-center mb-6 overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.p
@@ -113,12 +116,11 @@ export default function Hero() {
                 initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -30, opacity: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                {`> ${ROLES[roleIdx]}`}
+                {`> ${roles[roleIdx] || ''}`}
               </motion.p>
             </AnimatePresence>
           </div>
 
-          {/* Holographic card */}
           <motion.div
             className="mb-8 flex justify-center"
             initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.8 }}
@@ -138,29 +140,27 @@ export default function Hero() {
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontSize: '1.1rem', fontWeight: 900, fontFamily: 'Orbitron, sans-serif',
                 boxShadow: '0 0 14px rgba(0,245,255,0.25)',
-              }}>S</div>
+              }}>{personal.shortName?.[0] || 'S'}</div>
               <div style={{ textAlign: 'left', minWidth: 0 }}>
-                <div style={{ fontFamily: 'Orbitron, sans-serif', color: '#00f5ff', fontWeight: 700, fontSize: '0.9rem', whiteSpace: 'nowrap' }}>Sentamilselvan</div>
-                <div style={{ fontFamily: 'JetBrains Mono, monospace', color: 'rgba(255,255,255,0.45)', fontSize: '0.7rem', marginTop: 2 }}>Full Stack Developer</div>
-                <div style={{ fontFamily: 'JetBrains Mono, monospace', color: '#a78bfa', fontSize: '0.7rem', marginTop: 2, whiteSpace: 'nowrap' }}>Dharmapuri, Tamil Nadu, India 🇮🇳</div>
+                <div style={{ fontFamily: 'Orbitron, sans-serif', color: '#00f5ff', fontWeight: 700, fontSize: '0.9rem', whiteSpace: 'nowrap' }}>{personal.name}</div>
+                <div style={{ fontFamily: 'JetBrains Mono, monospace', color: 'rgba(255,255,255,0.45)', fontSize: '0.7rem', marginTop: 2 }}>{personal.title}</div>
+                <div style={{ fontFamily: 'JetBrains Mono, monospace', color: '#a78bfa', fontSize: '0.7rem', marginTop: 2, whiteSpace: 'nowrap' }}>{personal.location}</div>
               </div>
             </div>
           </motion.div>
 
-          {/* Tagline */}
           <motion.p
             className="font-mono text-xs md:text-sm text-gray-300 max-w-lg mx-auto mb-6 leading-relaxed px-2"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.85 }}
           >
-            Building scalable web applications, solving coding challenges, and continuously learning modern technologies to create impactful digital experiences.
+            {personal.tagline}
           </motion.p>
 
-          {/* Quick stats */}
           <motion.div
             className="flex flex-wrap justify-center gap-2 mb-8"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9 }}
           >
-            {[['200+', 'LeetCode'], ['1200+', 'CodeChef'], ['1200+', 'SkillRack'], ['B.E', 'CSE']].map(([val, label]) => (
+            {quickStats.map(([val, label]) => (
               <div key={label} className="glass px-3 py-2 rounded-lg text-center">
                 <div className="font-orbitron text-cyan-400 font-bold text-xs md:text-sm">{val}</div>
                 <div className="font-mono text-gray-500" style={{ fontSize: '0.65rem' }}>{label}</div>
@@ -168,12 +168,11 @@ export default function Hero() {
             ))}
           </motion.div>
 
-          {/* Action buttons */}
           <motion.div
             className="flex flex-wrap items-center justify-center gap-3"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 }}
           >
-            <MagneticBtn href="/resume.pdf" target="_blank" download="Sentamilselvan_Resume.pdf"
+            <MagneticBtn href={personal.resumePath} target="_blank"
               className="border border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 glow-box-cyan">
               📄 Resume
             </MagneticBtn>
@@ -192,7 +191,6 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Scroll indicator */}
         <motion.div
           className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }}
@@ -204,7 +202,6 @@ export default function Hero() {
         </motion.div>
       </section>
 
-      {/* Section divider */}
       <div className="relative z-10 flex flex-col items-center" style={{ marginTop: 60, marginBottom: 60 }}>
         <div style={{
           width: '50%', height: 1,

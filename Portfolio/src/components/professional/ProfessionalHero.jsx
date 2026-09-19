@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { PERSONAL, ROLES, SOCIAL_LINKS } from '../../data/portfolioData'
+import { usePortfolioData } from '../../hooks/usePortfolioData'
 
 export default function ProfessionalHero() {
   const [roleIdx, setRoleIdx] = useState(0)
+  const { personal: PERSONAL, roles: ROLES, social: SOCIAL_LINKS, coding } = usePortfolioData()
 
   useEffect(() => {
+    if (!ROLES.length) return
     const t = setInterval(() => setRoleIdx(i => (i + 1) % ROLES.length), 2800)
     return () => clearInterval(t)
-  }, [])
+  }, [ROLES.length])
 
   const github = SOCIAL_LINKS.find(l => l.label === 'GitHub')
   const linkedin = SOCIAL_LINKS.find(l => l.label === 'LinkedIn')
@@ -129,14 +131,20 @@ export default function ProfessionalHero() {
                 <p className="text-sm mb-1" style={{ color: '#a855f7' }}>{PERSONAL.title}</p>
                 <p className="text-xs mb-5" style={{ color: '#94a3b8' }}>📍 {PERSONAL.location}</p>
 
-                {/* Quick stats */}
+                {/* Quick stats — driven by live coding data */}
                 <div className="grid grid-cols-3 gap-3">
-                  {[['200+', 'LeetCode'], ['1200+', 'SkillRack'], ['7.83', 'CGPA']].map(([val, lbl]) => (
-                    <div key={lbl} className="rounded-xl p-2" style={{ background: '#faf7ff', border: '1px solid #eee5f5' }}>
-                      <div className="font-bold text-sm" style={{ color: '#c026d3' }}>{val}</div>
-                      <div className="text-xs" style={{ color: '#94a3b8' }}>{lbl}</div>
+                  {coding.quick.slice(0, 2).map(q => (
+                    <div key={q.label} className="rounded-xl p-2" style={{ background: '#faf7ff', border: '1px solid #eee5f5' }}>
+                      <div className="font-bold text-sm" style={{ color: '#c026d3' }}>
+                        {q.prefix || ''}{q.value}{q.suffix || ''}
+                      </div>
+                      <div className="text-xs" style={{ color: '#94a3b8' }}>{q.label}</div>
                     </div>
                   ))}
+                  <div className="rounded-xl p-2" style={{ background: '#faf7ff', border: '1px solid #eee5f5' }}>
+                    <div className="font-bold text-sm" style={{ color: '#c026d3' }}>{PERSONAL.cgpa || '7.83'}</div>
+                    <div className="text-xs" style={{ color: '#94a3b8' }}>CGPA</div>
+                  </div>
                 </div>
               </div>
             </div>

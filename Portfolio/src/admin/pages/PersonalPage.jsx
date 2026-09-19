@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Field, Textarea, FormCard, SaveBtn } from '../components/AdminUI'
 
 export default function PersonalPage({ data, onSave }) {
   const [form, setForm] = useState({ ...data })
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }))
+
+  useEffect(() => { setForm({ ...data }) }, [data])
 
   return (
     <div className="flex flex-col gap-6">

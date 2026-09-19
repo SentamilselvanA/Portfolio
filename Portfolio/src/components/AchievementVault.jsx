@@ -1,16 +1,6 @@
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
-
-const ACHIEVEMENTS = [
-  { icon: '🥇', title: 'SQL Basic Certification', org: 'HackerRank', year: '2024', color: '#10b981', type: 'cert' },
-  { icon: '🥈', title: 'SQL Intermediate Certification', org: 'HackerRank', year: '2024', color: '#10b981', type: 'cert' },
-  { icon: '🥉', title: 'SQL Advanced Certification', org: 'HackerRank', year: '2024', color: '#10b981', type: 'cert' },
-  { icon: '📚', title: 'Mastering DSA with C & C++', org: 'Udemy', year: '2024', color: '#fbbf24', type: 'cert' },
-  { icon: '🐍', title: 'Python for Complete Beginners', org: 'Udemy', year: '2024', color: '#3776ab', type: 'cert' },
-  { icon: '☕', title: 'Java for Beginners', org: 'Udemy', year: '2024', color: '#f89820', type: 'cert' },
-  { icon: '🧩', title: '200+ LeetCode Solved', org: 'LeetCode', year: '2024', color: '#ffa116', type: 'achievement' },
-  { icon: '🏆', title: '1200+ SkillRack Problems', org: 'SkillRack', year: '2024', color: '#00f5ff', type: 'achievement' },
-]
+import { usePortfolioData } from '../hooks/usePortfolioData'
 
 const VAULT_GEARS = [
   { size: 80, x: 20, y: 20, speed: 15 },
@@ -23,6 +13,7 @@ export default function AchievementVault() {
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
+  const { achievements: ACHIEVEMENTS } = usePortfolioData()
 
   return (
     <section id="vault" className="relative py-24 px-4 z-10">

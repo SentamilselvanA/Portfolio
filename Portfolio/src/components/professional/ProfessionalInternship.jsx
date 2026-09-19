@@ -1,10 +1,11 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { INTERNSHIP } from '../../data/portfolioData'
+import { usePortfolioData } from '../../hooks/usePortfolioData'
 
 export default function ProfessionalInternship() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
+  const { internship: INTERNSHIP } = usePortfolioData()
 
   return (
     <section id="p-intern" className="py-20 px-4" style={{ background: '#faf7ff' }}>

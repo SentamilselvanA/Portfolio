@@ -1,10 +1,11 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { PERSONAL, MILESTONES } from '../../data/portfolioData'
+import { usePortfolioData } from '../../hooks/usePortfolioData'
 
 export default function ProfessionalAbout() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
+  const { personal: PERSONAL, milestones: MILESTONES } = usePortfolioData()
 
   return (
     <section id="p-about" className="py-20 px-4" style={{ background: '#ffffff' }}>

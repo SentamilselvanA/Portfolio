@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
-import { PROJECTS } from '../../data/portfolioData'
+import { usePortfolioData } from '../../hooks/usePortfolioData'
 
 function ProjectCard({ project, index, onClick }) {
   const ref = useRef(null)
@@ -138,6 +138,7 @@ export default function ProfessionalProjects() {
   const [selected, setSelected] = useState(null)
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
+  const { projects: PROJECTS } = usePortfolioData()
 
   return (
     <section id="p-projects" className="py-20 px-4" style={{ background: '#ffffff' }}>

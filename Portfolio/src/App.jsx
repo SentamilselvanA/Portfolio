@@ -28,12 +28,19 @@ import ProfessionalContact from './components/professional/ProfessionalContact'
 
 const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a']
 
-function UniverseApp({ onLogoClick, soundOn, setSoundOn }) {
+function UniverseApp({ soundOn, setSoundOn }) {
   const [loaded, setLoaded] = useState(false)
   const [progress, setProgress] = useState(0)
   const [konamiIdx, setKonamiIdx] = useState(0)
   const [easterEgg, setEasterEgg] = useState(false)
   const [secretMsg, setSecretMsg] = useState(false)
+  const [logoClicks, setLogoClicks] = useState(0)
+
+  const handleLogoClick = useCallback(() => {
+    const next = logoClicks + 1
+    setLogoClicks(next)
+    if (next >= 5) { setSecretMsg(true); setTimeout(() => setSecretMsg(false), 4000); setLogoClicks(0) }
+  }, [logoClicks])
   const cursorRef = useRef(null)
   const followerRef = useRef(null)
   const trailsRef = useRef([])
@@ -137,7 +144,7 @@ function UniverseApp({ onLogoClick, soundOn, setSoundOn }) {
       ) : (
         <>
           <ParticleField />
-          <Navbar onLogoClick={onLogoClick} soundOn={soundOn} onSoundToggle={() => setSoundOn(s => !s)} />
+          <Navbar onLogoClick={handleLogoClick} soundOn={soundOn} onSoundToggle={() => setSoundOn(s => !s)} />
           <Hero />
           <About />
           <Skills />
@@ -191,8 +198,6 @@ function ProfessionalApp() {
 
 function AppContent() {
   const { portfolioMode, transitioning } = useMode()
-  const [logoClicks, setLogoClicks] = useState(0)
-  const [secretMsg, setSecretMsg] = useState(false)
   const [soundOn, setSoundOn] = useState(false)
 
   useLayoutEffect(() => {
@@ -204,12 +209,6 @@ function AppContent() {
   useEffect(() => {
     return () => document.body.classList.remove('pro-mode', 'universe-mode')
   }, [])
-
-  const handleLogoClick = useCallback(() => {
-    const next = logoClicks + 1
-    setLogoClicks(next)
-    if (next >= 5) { setSecretMsg(true); setTimeout(() => setSecretMsg(false), 4000); setLogoClicks(0) }
-  }, [logoClicks])
 
   return (
     <>
@@ -223,7 +222,7 @@ function AppContent() {
           transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
         >
           {portfolioMode === 'universe' ? (
-            <UniverseApp onLogoClick={handleLogoClick} soundOn={soundOn} setSoundOn={setSoundOn} />
+            <UniverseApp soundOn={soundOn} setSoundOn={setSoundOn} />
           ) : (
             <ProfessionalApp />
           )}

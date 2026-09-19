@@ -1,12 +1,13 @@
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
-import { PERSONAL, SOCIAL_LINKS } from '../../data/portfolioData'
+import { usePortfolioData } from '../../hooks/usePortfolioData'
 
 export default function ProfessionalContact() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
   const [status, setStatus] = useState('idle')
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
+  const { personal: PERSONAL, social: SOCIAL_LINKS } = usePortfolioData()
 
   const handleSubmit = async e => {
     e.preventDefault()

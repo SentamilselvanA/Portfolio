@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { SKILLS } from '../../data/portfolioData'
+import { usePortfolioData } from '../../hooks/usePortfolioData'
 
 function SkillCard({ skill, index }) {
   const ref = useRef(null)
@@ -41,6 +41,7 @@ export default function ProfessionalSkills() {
   const [activeCategory, setActiveCategory] = useState('Programming')
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
+  const { skills: SKILLS } = usePortfolioData()
 
   return (
     <section id="p-skills" className="py-20 px-4" style={{ background: '#faf7ff' }}>

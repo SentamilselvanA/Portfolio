@@ -1,14 +1,6 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-
-const MILESTONES = [
-  { year: '2021–2022', title: 'SSLC — 84.6%', desc: 'Completed secondary education at Government High School, Muthanoor with 84.6%, building a strong foundation for higher studies.', icon: '📚', color: '#00f5ff', side: 'left' },
-  { year: '2023–2024', title: 'HSC — 87.6%', desc: 'Achieved 87.6% in Higher Secondary Certificate at Government Model School, Dharmapuri, excelling in Science stream.', icon: '🏫', color: '#8b5cf6', side: 'right' },
-  { year: '2024', title: 'B.E CSE @ Sri Eshwar', desc: 'Joined Sri Eshwar College of Engineering for B.E Computer Science and Engineering. Currently maintaining a CGPA of 7.83 (till 3rd semester).', icon: '🎓', color: '#ec4899', side: 'left' },
-  { year: '2024', title: 'Full Stack Development', desc: 'Mastered the MERN stack — React, Node.js, Express, MongoDB. Built real-world projects including a Skill Gap Analyzer and AlgoVision.', icon: '⚡', color: '#fbbf24', side: 'right' },
-  { year: '2024', title: '200+ LeetCode & 1200+ CodeChef', desc: 'Solved 200+ LeetCode problems and 1200+ CodeChef & SkillRack problems, earning a Diamond Badge and ranking 14849 on SkillRack.', icon: '🧩', color: '#10b981', side: 'left' },
-  { year: 'NOW', title: 'Preparing For Career', desc: 'Building impactful products, earning certifications, and seeking opportunities to grow as a software engineer at scale.', icon: '🎯', color: '#00f5ff', side: 'right' },
-]
+import { usePortfolioData } from '../hooks/usePortfolioData'
 
 const colorRgb = {
   '#00f5ff': '0,245,255',
@@ -81,6 +73,7 @@ function TimelineItem({ item, index }) {
 export default function About() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
+  const { milestones: MILESTONES, personal } = usePortfolioData()
 
   return (
     <section id="about" className="relative py-16 md:py-24 px-4 z-10">
@@ -90,7 +83,7 @@ export default function About() {
           <div className="font-mono text-cyan-400 text-sm tracking-widest mb-3">// CHAPTER 01</div>
           <h2 className="font-orbitron font-black text-3xl md:text-6xl glow-cyan text-cyan-400 mb-4 md:mb-6">MY JOURNEY</h2>
           <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed text-sm md:text-base">
-            Passionate CSE student at Sri Eshwar College of Engineering, focused on Full Stack Development, DSA, and Software Engineering — transforming ideas into real-world applications.
+            {personal.bio}
           </p>
         </motion.div>
 

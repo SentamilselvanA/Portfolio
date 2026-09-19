@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { usePortfolioData } from '../hooks/usePortfolioData'
 
 const TERMINAL_LINES = [
   '> Initializing secure channel...',
@@ -9,11 +10,12 @@ const TERMINAL_LINES = [
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
-  const [status, setStatus] = useState('idle') // idle | sending | sent | error
+  const [status, setStatus] = useState('idle')
   const [termLines, setTermLines] = useState([])
   const [focused, setFocused] = useState(null)
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
+  const { social: LINKS } = usePortfolioData()
 
   useEffect(() => {
     if (!inView) return
@@ -31,16 +33,6 @@ export default function Contact() {
     setTimeout(() => { setStatus('idle'); setForm({ name: '', email: '', message: '' }) }, 4000)
   }
 
-  const LINKS = [
-    { icon: '🐙', label: 'GitHub', href: 'https://github.com', color: '#ffffff' },
-    { icon: '💼', label: 'LinkedIn', href: 'https://www.linkedin.com/in/sentamil-selvan-736760327/', color: '#0077b5' },
-    { icon: '📧', label: 'Email', href: 'mailto:your@email.com', color: '#00f5ff' },
-    { icon: '🧩', label: 'LeetCode', href: 'https://leetcode.com/u/sentamilselvan001/', color: '#ffa116' },
-    { icon: '👨‍🍳', label: 'CodeChef', href: 'https://www.codechef.com/users/sentamilselvan', color: '#8b5cf6' },
-    { icon: '⭐', label: 'HackerRank', href: 'https://www.hackerrank.com/profile/sentamilselvan_2', color: '#10b981' },
-    { icon: '🏆', label: 'SkillRack', href: 'https://www.skillrack.com/faces/resume.xhtml?id=515071', color: '#00f5ff' },
-  ]
-
   return (
     <section id="contact" className="relative py-24 px-4 z-10">
       <div className="max-w-5xl mx-auto">
@@ -55,7 +47,6 @@ export default function Contact() {
           {/* Terminal */}
           <motion.div className="glass-dark rounded-2xl overflow-hidden border border-cyan-500/20"
             initial={{ opacity: 0, x: -40 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ delay: 0.2 }}>
-            {/* Terminal header */}
             <div className="flex items-center gap-2 px-4 py-3 border-b border-cyan-500/10"
               style={{ background: 'rgba(0,245,255,0.03)' }}>
               <div className="w-3 h-3 rounded-full bg-red-500" />
@@ -79,12 +70,11 @@ export default function Contact() {
               )}
             </div>
 
-            {/* Social links */}
             <div className="px-6 pb-6">
               <div className="font-mono text-xs text-gray-500 mb-3">// CONNECT ON</div>
               <div className="grid grid-cols-2 gap-3">
                 {LINKS.map((l, i) => (
-                  <a key={i} href={l.href} target="_blank"
+                  <a key={i} href={l.href} target="_blank" rel="noopener noreferrer"
                     className="flex items-center gap-2 px-3 py-2 rounded-lg transition-all hover:scale-105"
                     style={{ background: `${l.color}09`, border: `1px solid ${l.color}22`, color: l.color }}>
                     <span>{l.icon}</span>
@@ -169,16 +159,11 @@ export default function Contact() {
           </motion.div>
         </div>
 
-        {/* Footer */}
         <motion.div className="text-center mt-16 pt-8 border-t border-gray-800"
           initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ delay: 0.8 }}>
           <div className="font-orbitron text-cyan-400 font-bold text-lg mb-2">SENTAMILSELVAN</div>
-          <div className="font-mono text-xs text-gray-600">
-            Built with React + Tailwind + Framer Motion | © 2024
-          </div>
-          <div className="font-mono text-xs text-gray-700 mt-1">
-            // Try: ↑↑↓↓←→←→BA for a surprise
-          </div>
+          <div className="font-mono text-xs text-gray-600">Built with React + Tailwind + Framer Motion | © 2024</div>
+          <div className="font-mono text-xs text-gray-700 mt-1">// Try: ↑↑↓↓←→←→BA for a surprise</div>
         </motion.div>
       </div>
     </section>
