@@ -20,9 +20,9 @@ export default function ProfessionalContact() {
 
   const contactInfo = [
     { icon: '📧', label: 'Email',    value: PERSONAL.email,    href: `mailto:${PERSONAL.email}` },
-    { icon: '💼', label: 'LinkedIn', value: 'sentamil-selvan', href: SOCIAL_LINKS.find(l => l.label === 'LinkedIn')?.href },
-    { icon: '🐙', label: 'GitHub',   value: 'SentamilselvanA', href: SOCIAL_LINKS.find(l => l.label === 'GitHub')?.href },
-    { icon: '🧩', label: 'LeetCode', value: 'sentamilselvan001', href: SOCIAL_LINKS.find(l => l.label === 'LeetCode')?.href },
+    { icon: '💼', label: 'LinkedIn', value: SOCIAL_LINKS.find(l => l.label === 'LinkedIn')?.href?.split('/in/')?.[1]?.replace('/', '') || 'LinkedIn', href: SOCIAL_LINKS.find(l => l.label === 'LinkedIn')?.href },
+    { icon: '🐙', label: 'GitHub',   value: SOCIAL_LINKS.find(l => l.label === 'GitHub')?.href?.split('github.com/')?.[1] || 'GitHub', href: SOCIAL_LINKS.find(l => l.label === 'GitHub')?.href },
+    { icon: '🧩', label: 'LeetCode', value: SOCIAL_LINKS.find(l => l.label === 'LeetCode')?.href?.split('/u/')?.[1]?.replace('/', '') || 'LeetCode', href: SOCIAL_LINKS.find(l => l.label === 'LeetCode')?.href },
   ]
 
   return (

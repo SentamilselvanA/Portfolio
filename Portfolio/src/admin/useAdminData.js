@@ -28,7 +28,17 @@ function defaults() {
     milestones: D_MILESTONES.map(m => ({ ...m })),
     skills: JSON.parse(JSON.stringify(D_SKILLS)),
     projects: D_PROJECTS.map(p => ({ ...p, features: [...p.features], tech: [...p.tech] })),
-    coding: JSON.parse(JSON.stringify(D_CODING)),
+    // coding stores only platforms — quick is derived, never stored
+    coding: {
+      platforms: D_CODING.platforms.map(p => ({
+        ...p,
+        stats: p.stats.map(s => ({ ...s })),
+        bars: p.bars.map(b => [...b]),
+        ...(p.langBadges ? { langBadges: p.langBadges.map(l => ({ ...l })) } : {}),
+        ...(p.quickBadge ? { quickBadge: { ...p.quickBadge } } : {}),
+        ...(p.rank !== undefined ? { rank: p.rank } : {}),
+      })),
+    },
     achievements: D_ACHIEVEMENTS.map(a => ({ ...a })),
     internship: {
       ...D_INTERNSHIP,
@@ -59,7 +69,6 @@ export function useAdminData() {
   return { data, save, reset }
 }
 
-// Called by portfolioData consumers to get live data
 export function getAdminData() {
   try {
     const raw = localStorage.getItem(KEY)

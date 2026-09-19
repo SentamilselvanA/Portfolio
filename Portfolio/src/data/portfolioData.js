@@ -115,28 +115,39 @@ const _PROJECTS = [
   },
 ]
 
+// ── Coding Stats ──────────────────────────────────────────────────────────────
+//
+// ARCHITECTURE: coding.quick does NOT exist in stored data.
+// It is DERIVED at runtime by usePortfolioData() from platforms[].stats[0].value
+// and platforms[skillrack].rank so there is ONE canonical value per statistic.
+//
+// To add/change a count, edit ONLY the platform's stats[0].value (or rank).
+// The quick badge card automatically reflects the same number.
+//
+// quickBadge on a platform = metadata (label, icon, color, suffix/prefix) for
+// the derived quick card. It carries NO numeric value of its own.
+
 const _CODING_STATS = {
-  quick: [
-    { label: 'LeetCode',       value: 200,   icon: '🧩', color: '#ffa116', suffix: '+' },
-    { label: 'CodeChef',       value: 1200,  icon: '👨‍🍳', color: '#8b5cf6', suffix: '+' },
-    { label: 'SkillRack',      value: 1200,  icon: '🏆', color: '#00f5ff', suffix: '+' },
-    { label: 'SkillRack Rank', value: 14849, icon: '📊', color: '#ec4899', prefix: '#' },
-  ],
   platforms: [
     {
       platform: 'LeetCode', icon: '🧩', color: '#ffa116',
+      quickBadge: { label: 'LeetCode', icon: '🧩', color: '#ffa116', suffix: '+' },
       stats: [{ label: 'Problems Solved', value: 350, suffix: '+' }],
       bars: [['Arrays & Strings', 80], ['Dynamic Programming', 60], ['Trees & Graphs', 65]],
       link: 'https://leetcode.com/u/sentamilselvan001/',
     },
     {
       platform: 'CodeChef', icon: '👨‍🍳', color: '#8b5cf6',
+      quickBadge: { label: 'CodeChef', icon: '👨‍🍳', color: '#8b5cf6', suffix: '+' },
       stats: [{ label: 'Problems Solved', value: 1200, suffix: '+' }],
       bars: [['Basic Programming', 95], ['Data Structures', 80], ['Algorithms', 75]],
       link: 'https://www.codechef.com/users/sentamilselvan',
     },
     {
       platform: 'SkillRack', icon: '🏆', color: '#00f5ff',
+      quickBadge: { label: 'SkillRack', icon: '🏆', color: '#00f5ff', suffix: '+' },
+      // rank is the canonical SkillRack rank — drives the 4th quick badge
+      rank: 14849,
       stats: [{ label: 'Problems Solved', value: 1200, suffix: '+' }, { label: 'Certificates', value: 15, suffix: '+' }],
       bars: [['C Programming', 90], ['Java', 80], ['Python', 78]],
       link: 'https://www.skillrack.com/faces/resume.xhtml?id=515071',
