@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Field, Textarea, FormCard, SaveBtn, AddBtn, RemoveBtn } from '../components/AdminUI'
 
 export default function InternshipPage({ data, onSave }) {
@@ -6,6 +6,10 @@ export default function InternshipPage({ data, onSave }) {
     ...data,
     learningAreas: data.learningAreas.map(l => ({ ...l })),
   })
+
+  useEffect(() => {
+    setForm({ ...data, learningAreas: data.learningAreas.map(l => ({ ...l })) })
+  }, [data])
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }))
 
   const updateArea = (i, k, v) =>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Field, Textarea, FormCard, SaveBtn, AddBtn, RemoveBtn } from '../components/AdminUI'
 
 function ProjectCard({ proj, idx, onChange, onRemove }) {
@@ -31,6 +31,10 @@ function ProjectCard({ proj, idx, onChange, onRemove }) {
 
 export default function ProjectsPage({ data, onSave }) {
   const [projects, setProjects] = useState(data.map(p => ({ ...p, features: [...p.features], tech: [...p.tech] })))
+
+  useEffect(() => {
+    setProjects(data.map(p => ({ ...p, features: [...p.features], tech: [...p.tech] })))
+  }, [data])
 
   const update = (i, k, v) => setProjects(ps => ps.map((p, idx) => idx === i ? { ...p, [k]: v } : p))
   const remove = i => setProjects(ps => ps.filter((_, idx) => idx !== i))

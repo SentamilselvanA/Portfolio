@@ -16,7 +16,20 @@ const KEY = 'adminPortfolioData'
 function load() {
   try {
     const raw = localStorage.getItem(KEY)
-    return raw ? JSON.parse(raw) : null
+    if (!raw) return null
+    const parsed = JSON.parse(raw)
+    // Repair coding shape if it was saved before quick/platforms were nested
+    if (parsed && parsed.coding) {
+      const c = parsed.coding
+      if (!Array.isArray(c.quick))     c.quick     = D_CODING.quick.map(q => ({ ...q }))
+      if (!Array.isArray(c.platforms)) c.platforms = D_CODING.platforms.map(p => ({
+        ...p,
+        stats: (p.stats || []).map(s => ({ ...s })),
+        bars:  (p.bars  || []).map(b => [...b]),
+        ...(p.langBadges ? { langBadges: p.langBadges.map(l => ({ ...l })) } : {}),
+      }))
+    }
+    return parsed
   } catch { return null }
 }
 
@@ -28,15 +41,13 @@ function defaults() {
     milestones: D_MILESTONES.map(m => ({ ...m })),
     skills: JSON.parse(JSON.stringify(D_SKILLS)),
     projects: D_PROJECTS.map(p => ({ ...p, features: [...p.features], tech: [...p.tech] })),
-    // coding stores only platforms — quick is derived, never stored
     coding: {
-      platforms: D_CODING.platforms.map(p => ({
+      quick: (Array.isArray(D_CODING.quick) ? D_CODING.quick : []).map(q => ({ ...q })),
+      platforms: (Array.isArray(D_CODING.platforms) ? D_CODING.platforms : []).map(p => ({
         ...p,
-        stats: p.stats.map(s => ({ ...s })),
-        bars: p.bars.map(b => [...b]),
-        ...(p.langBadges ? { langBadges: p.langBadges.map(l => ({ ...l })) } : {}),
-        ...(p.quickBadge ? { quickBadge: { ...p.quickBadge } } : {}),
-        ...(p.rank !== undefined ? { rank: p.rank } : {}),
+        stats: (Array.isArray(p.stats) ? p.stats : []).map(s => ({ ...s })),
+        bars:  (Array.isArray(p.bars)  ? p.bars  : []).map(b => [...b]),
+        ...(Array.isArray(p.langBadges) ? { langBadges: p.langBadges.map(l => ({ ...l })) } : {}),
       })),
     },
     achievements: D_ACHIEVEMENTS.map(a => ({ ...a })),
@@ -69,6 +80,7 @@ export function useAdminData() {
   return { data, save, reset }
 }
 
+// Called by portfolioData consumers to get live data
 export function getAdminData() {
   try {
     const raw = localStorage.getItem(KEY)

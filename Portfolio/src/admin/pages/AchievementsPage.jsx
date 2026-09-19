@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Field, FormCard, SaveBtn, AddBtn, RemoveBtn } from '../components/AdminUI'
 
 export default function AchievementsPage({ data, onSave }) {
   const [items, setItems] = useState(data.map(a => ({ ...a })))
+
+  useEffect(() => { setItems(data.map(a => ({ ...a }))) }, [data])
 
   const update = (i, k, v) => setItems(ls => ls.map((a, idx) => idx === i ? { ...a, [k]: v } : a))
   const remove = i => setItems(ls => ls.filter((_, idx) => idx !== i))

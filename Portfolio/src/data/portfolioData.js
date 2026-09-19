@@ -32,7 +32,7 @@ const _SOCIAL_LINKS = [
   { icon: '💼', label: 'LinkedIn',   href: 'https://www.linkedin.com/in/sentamil-selvan-736760327/',          color: '#0077b5' },
   { icon: '📧', label: 'Email',      href: 'mailto:sentamilselvan001@gmail.com',                               color: '#00f5ff' },
   { icon: '🧩', label: 'LeetCode',   href: 'https://leetcode.com/u/sentamilselvan001/',                       color: '#ffa116' },
-  { icon: '👨‍🍳', label: 'CodeChef',  href: 'https://www.codechef.com/users/sentamilselvan',                   color: '#8b5cf6' },
+  { icon: '👨🍳', label: 'CodeChef',  href: 'https://www.codechef.com/users/sentamilselvan',                   color: '#8b5cf6' },
   { icon: '⭐', label: 'HackerRank', href: 'https://www.hackerrank.com/profile/sentamilselvan_2',             color: '#10b981' },
   { icon: '🏆', label: 'SkillRack',  href: 'https://www.skillrack.com/faces/resume.xhtml?id=515071',         color: '#00f5ff' },
 ]
@@ -50,7 +50,7 @@ const _MILESTONES = [
   { year: '2023–2024', title: 'HSC — 87.6%',                    desc: 'Achieved 87.6% in Higher Secondary Certificate at Government Model School, Dharmapuri, excelling in Science stream.',                                                           icon: '🏫', color: '#8b5cf6', side: 'right' },
   { year: '2024',      title: 'B.E CSE @ Sri Eshwar',           desc: 'Joined Sri Eshwar College of Engineering for B.E Computer Science and Engineering. Currently maintaining a CGPA of 7.83 (till 3rd semester).',                                 icon: '🎓', color: '#ec4899', side: 'left'  },
   { year: '2024',      title: 'Full Stack Development',         desc: 'Mastered the MERN stack — React, Node.js, Express, MongoDB. Built real-world projects including a Skill Gap Analyzer and AlgoVision.',                                         icon: '⚡', color: '#fbbf24', side: 'right' },
-  { year: '2024',      title: '200+ LeetCode & 1200+ CodeChef', desc: 'Solved 200+ LeetCode problems and 1200+ CodeChef & SkillRack problems, earning a Diamond Badge and ranking 14849 on SkillRack.',                                              icon: '🧩', color: '#10b981', side: 'left'  },
+  { year: '2024',      title: '350+ LeetCode & 1200+ CodeChef', desc: 'Solved 350+ LeetCode problems and 1200+ CodeChef & SkillRack problems, earning a Diamond Badge and ranking 14849 on SkillRack.',                                              icon: '🧩', color: '#10b981', side: 'left'  },
   { year: 'NOW',       title: 'Preparing For Career',           desc: 'Building impactful products, earning certifications, and seeking opportunities to grow as a software engineer at scale.',                                                        icon: '🎯', color: '#00f5ff', side: 'right' },
 ]
 
@@ -115,39 +115,29 @@ const _PROJECTS = [
   },
 ]
 
-// ── Coding Stats ──────────────────────────────────────────────────────────────
-//
-// ARCHITECTURE: coding.quick does NOT exist in stored data.
-// It is DERIVED at runtime by usePortfolioData() from platforms[].stats[0].value
-// and platforms[skillrack].rank so there is ONE canonical value per statistic.
-//
-// To add/change a count, edit ONLY the platform's stats[0].value (or rank).
-// The quick badge card automatically reflects the same number.
-//
-// quickBadge on a platform = metadata (label, icon, color, suffix/prefix) for
-// the derived quick card. It carries NO numeric value of its own.
-
 const _CODING_STATS = {
+  // quick[] label values match platform names exactly so CodingPage can sync them.
+  quick: [
+    { label: 'LeetCode',       value: 350,   icon: '🧩', color: '#ffa116', suffix: '+' },
+    { label: 'CodeChef',       value: 1200,  icon: '👨🍳', color: '#8b5cf6', suffix: '+' },
+    { label: 'SkillRack',      value: 1200,  icon: '🏆', color: '#00f5ff', suffix: '+' },
+    { label: 'SkillRack Rank', value: 14849, icon: '📊', color: '#ec4899', prefix: '#' },
+  ],
   platforms: [
     {
       platform: 'LeetCode', icon: '🧩', color: '#ffa116',
-      quickBadge: { label: 'LeetCode', icon: '🧩', color: '#ffa116', suffix: '+' },
       stats: [{ label: 'Problems Solved', value: 350, suffix: '+' }],
       bars: [['Arrays & Strings', 80], ['Dynamic Programming', 60], ['Trees & Graphs', 65]],
       link: 'https://leetcode.com/u/sentamilselvan001/',
     },
     {
-      platform: 'CodeChef', icon: '👨‍🍳', color: '#8b5cf6',
-      quickBadge: { label: 'CodeChef', icon: '👨‍🍳', color: '#8b5cf6', suffix: '+' },
+      platform: 'CodeChef', icon: '👨🍳', color: '#8b5cf6',
       stats: [{ label: 'Problems Solved', value: 1200, suffix: '+' }],
       bars: [['Basic Programming', 95], ['Data Structures', 80], ['Algorithms', 75]],
       link: 'https://www.codechef.com/users/sentamilselvan',
     },
     {
       platform: 'SkillRack', icon: '🏆', color: '#00f5ff',
-      quickBadge: { label: 'SkillRack', icon: '🏆', color: '#00f5ff', suffix: '+' },
-      // rank is the canonical SkillRack rank — drives the 4th quick badge
-      rank: 14849,
       stats: [{ label: 'Problems Solved', value: 1200, suffix: '+' }, { label: 'Certificates', value: 15, suffix: '+' }],
       bars: [['C Programming', 90], ['Java', 80], ['Python', 78]],
       link: 'https://www.skillrack.com/faces/resume.xhtml?id=515071',
@@ -181,7 +171,7 @@ const _ACHIEVEMENTS = [
   { icon: '📚', title: 'Mastering DSA with C & C++',     org: 'Udemy',      year: '2024', color: '#fbbf24', type: 'cert',        link: '#' },
   { icon: '🐍', title: 'Python for Complete Beginners',  org: 'Udemy',      year: '2024', color: '#3776ab', type: 'cert',        link: '#' },
   { icon: '☕', title: 'Java for Beginners',             org: 'Udemy',      year: '2024', color: '#f89820', type: 'cert',        link: '#' },
-  { icon: '🧩', title: '200+ LeetCode Solved',           org: 'LeetCode',   year: '2024', color: '#ffa116', type: 'achievement', link: 'https://leetcode.com/u/sentamilselvan001/' },
+  { icon: '🧩', title: '350+ LeetCode Solved',           org: 'LeetCode',   year: '2024', color: '#ffa116', type: 'achievement', link: 'https://leetcode.com/u/sentamilselvan001/' },
   { icon: '🏆', title: '1200+ SkillRack Problems',       org: 'SkillRack',  year: '2024', color: '#00f5ff', type: 'achievement', link: 'https://www.skillrack.com/faces/resume.xhtml?id=515071' },
 ]
 
@@ -207,6 +197,7 @@ export const ROLES        = _o('roles')        || _ROLES
 export const MILESTONES   = _o('milestones')   || _MILESTONES
 export const SKILLS       = _o('skills')       || _SKILLS
 export const PROJECTS     = _o('projects')     || _PROJECTS
-export const CODING_STATS = _o('coding')       || _CODING_STATS
+const _oCoding = _o('coding')
+export const CODING_STATS = (_oCoding && Array.isArray(_oCoding.quick) && Array.isArray(_oCoding.platforms)) ? _oCoding : _CODING_STATS
 export const ACHIEVEMENTS = _o('achievements') || _ACHIEVEMENTS
 export const INTERNSHIP   = _o('internship')   || _INTERNSHIP

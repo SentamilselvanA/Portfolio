@@ -79,7 +79,7 @@ function MilestoneItem({ item, index }) {
 
       {/* Mobile */}
       <motion.div
-        className="flex md:hidden items-start gap-3 mb-5 pl-14"
+        className="flex md:hidden relative items-start gap-3 mb-5 pl-14"
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5, delay: index * 0.06 }}

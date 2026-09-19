@@ -41,7 +41,7 @@ export default function ProfessionalCodingProfiles() {
 
         {/* Quick stat badges */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-          {CODING_STATS.quick.map((b, i) => (
+          {(CODING_STATS.quick ?? []).map((b, i) => (
             <motion.div key={i}
               className="rounded-2xl p-5 text-center"
               style={{ background: '#ffffff', border: '1px solid #eee5f5', boxShadow: '0 4px 16px rgba(192,38,211,0.06)' }}
@@ -60,7 +60,7 @@ export default function ProfessionalCodingProfiles() {
 
         {/* Platform cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {CODING_STATS.platforms.map((platform, pi) => (
+          {(CODING_STATS.platforms ?? []).map((platform, pi) => (
             <motion.div key={pi}
               className="rounded-2xl p-6"
               style={{ background: '#ffffff', border: '1px solid #eee5f5', boxShadow: '0 4px 16px rgba(192,38,211,0.05)' }}
@@ -81,7 +81,7 @@ export default function ProfessionalCodingProfiles() {
                 </a>
               </div>
 
-              {platform.stats.length > 0 && (
+              {platform.stats?.length > 0 && (
                 <div className="flex gap-6 mb-4 flex-wrap">
                   {platform.stats.map((s, i) => (
                     <div key={i}>
@@ -94,9 +94,9 @@ export default function ProfessionalCodingProfiles() {
                 </div>
               )}
 
-              {platform.langBadges?.length > 0 && (
+              {platform.langBadges && (
                 <div className="grid grid-cols-3 gap-2">
-                  {platform.langBadges.map(({ lang, stars, color }) => (
+                  {(Array.isArray(platform.langBadges) ? platform.langBadges : []).map(({ lang, stars, color }) => (
                     <div key={lang} className="flex flex-col items-center gap-1.5 p-2.5 rounded-xl"
                       style={{ background: '#faf7ff', border: '1px solid #eee5f5' }}>
                       <span className="font-bold text-sm" style={{ color }}>{lang}</span>
@@ -110,7 +110,7 @@ export default function ProfessionalCodingProfiles() {
                 </div>
               )}
 
-              {platform.bars.length > 0 && (
+              {platform.bars?.length > 0 && (
                 <div className="space-y-3">
                   {platform.bars.map(([name, pct]) => (
                     <div key={name}>

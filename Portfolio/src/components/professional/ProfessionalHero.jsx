@@ -133,7 +133,7 @@ export default function ProfessionalHero() {
 
                 {/* Quick stats — driven by live coding data */}
                 <div className="grid grid-cols-3 gap-3">
-                  {coding.quick.slice(0, 2).map(q => (
+                  {(coding?.quick ?? []).slice(0, 2).map(q => (
                     <div key={q.label} className="rounded-xl p-2" style={{ background: '#faf7ff', border: '1px solid #eee5f5' }}>
                       <div className="font-bold text-sm" style={{ color: '#c026d3' }}>
                         {q.prefix || ''}{q.value}{q.suffix || ''}
@@ -142,7 +142,7 @@ export default function ProfessionalHero() {
                     </div>
                   ))}
                   <div className="rounded-xl p-2" style={{ background: '#faf7ff', border: '1px solid #eee5f5' }}>
-                    <div className="font-bold text-sm" style={{ color: '#c026d3' }}>{PERSONAL.cgpa || '7.83'}</div>
+                    <div className="font-bold text-sm" style={{ color: '#c026d3' }}>7.9</div>
                     <div className="text-xs" style={{ color: '#94a3b8' }}>CGPA</div>
                   </div>
                 </div>

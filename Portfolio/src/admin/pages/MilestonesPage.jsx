@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Field, Textarea, FormCard, SaveBtn, AddBtn, RemoveBtn } from '../components/AdminUI'
 
 export default function MilestonesPage({ data, onSave }) {
   const [items, setItems] = useState(data.map(m => ({ ...m })))
+
+  useEffect(() => { setItems(data.map(m => ({ ...m }))) }, [data])
 
   const update = (i, k, v) => setItems(ms => ms.map((m, idx) => idx === i ? { ...m, [k]: v } : m))
   const remove = i => setItems(ms => ms.filter((_, idx) => idx !== i))

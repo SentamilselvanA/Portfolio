@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Field, FormCard, SaveBtn, AddBtn, RemoveBtn } from '../components/AdminUI'
 
 const CATEGORIES = ['Programming', 'Frontend', 'Backend', 'Database', 'Tools']
@@ -6,6 +6,8 @@ const CATEGORIES = ['Programming', 'Frontend', 'Backend', 'Database', 'Tools']
 export default function SkillsPage({ data, onSave }) {
   const [skills, setSkills] = useState(JSON.parse(JSON.stringify(data)))
   const [activeTab, setActiveTab] = useState('Programming')
+
+  useEffect(() => { setSkills(JSON.parse(JSON.stringify(data))) }, [data])
 
   const updateSkill = (cat, i, k, v) =>
     setSkills(s => ({ ...s, [cat]: s[cat].map((sk, idx) => idx === i ? { ...sk, [k]: v } : sk) }))

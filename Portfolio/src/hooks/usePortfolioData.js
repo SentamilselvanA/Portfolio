@@ -14,39 +14,9 @@ function readLive() {
   } catch { return {} }
 }
 
-// Derives coding.quick from platforms so there is ONE canonical value per stat.
-// quick[0] = LeetCode  → platforms[0].stats[0].value
-// quick[1] = CodeChef  → platforms[1].stats[0].value
-// quick[2] = SkillRack → platforms[2].stats[0].value
-// quick[3] = SkillRack Rank → platforms[2].rank
-function deriveQuick(platforms) {
-  const lc  = platforms.find(p => p.platform === 'LeetCode')
-  const cc  = platforms.find(p => p.platform === 'CodeChef')
-  const sr  = platforms.find(p => p.platform === 'SkillRack')
-
-  return [
-    lc && lc.quickBadge
-      ? { ...lc.quickBadge, value: lc.stats[0]?.value ?? 0 }
-      : null,
-    cc && cc.quickBadge
-      ? { ...cc.quickBadge, value: cc.stats[0]?.value ?? 0 }
-      : null,
-    sr && sr.quickBadge
-      ? { ...sr.quickBadge, value: sr.stats[0]?.value ?? 0 }
-      : null,
-    sr
-      ? { label: 'SkillRack Rank', icon: '📊', color: '#ec4899', prefix: '#', suffix: '', value: sr.rank ?? 0 }
-      : null,
-  ].filter(Boolean)
-}
-
 function merge(ov) {
-  const rawCoding = ov.coding || D_CODING
-  // Attach derived quick array — never stored, always computed
-  const coding = {
-    ...rawCoding,
-    quick: deriveQuick(rawCoding.platforms),
-  }
+  const coding = ov.coding || D_CODING
+  const internship = ov.internship || D_INTERNSHIP
   return {
     personal:     ov.personal     || D_PERSONAL,
     social:       ov.social       || D_SOCIAL,
@@ -54,9 +24,18 @@ function merge(ov) {
     milestones:   ov.milestones   || D_MILESTONES,
     skills:       ov.skills       || D_SKILLS,
     projects:     ov.projects     || D_PROJECTS,
-    coding,
+    coding: {
+      quick:     Array.isArray(coding.quick)     ? coding.quick     : D_CODING.quick,
+      platforms: Array.isArray(coding.platforms) ? coding.platforms : D_CODING.platforms,
+    },
     achievements: ov.achievements || D_ACHIEVEMENTS,
-    internship:   ov.internship   || D_INTERNSHIP,
+    internship: {
+      ...D_INTERNSHIP,
+      ...internship,
+      learningAreas: Array.isArray(internship.learningAreas)
+        ? internship.learningAreas
+        : D_INTERNSHIP.learningAreas,
+    },
   }
 }
 
@@ -65,7 +44,9 @@ export function usePortfolioData() {
 
   useEffect(() => {
     const refresh = () => setData(merge(readLive()))
+    // fires when another tab writes localStorage
     window.addEventListener('storage', refresh)
+    // fires when admin saves in the same tab
     window.addEventListener('portfolioDataUpdated', refresh)
     return () => {
       window.removeEventListener('storage', refresh)

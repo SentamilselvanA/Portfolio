@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Field, FormCard, SaveBtn, AddBtn, RemoveBtn } from '../components/AdminUI'
 
 export default function SocialPage({ data, rolesData, onSave }) {
   const [links, setLinks] = useState(data.map(s => ({ ...s })))
   const [roles, setRoles] = useState([...rolesData])
+
+  useEffect(() => { setLinks(data.map(s => ({ ...s }))) }, [data])
+  useEffect(() => { setRoles([...rolesData]) }, [rolesData])
 
   const updateLink = (i, k, v) => setLinks(ls => ls.map((l, idx) => idx === i ? { ...l, [k]: v } : l))
   const removeLink = i => setLinks(ls => ls.filter((_, idx) => idx !== i))

@@ -227,9 +227,10 @@ export default function ParticleField() {
         if (shootStar.life<=0 || shootStar.x>W || shootStar.y>H) { shootStar=null }
         else {
           const len = 90 * shootStar.life
+          const speed = Math.sqrt(shootStar.vx ** 2 + shootStar.vy ** 2) || 1
           const sg = ctx.createLinearGradient(
-            shootStar.x - shootStar.vx/shootStar.vx*len,
-            shootStar.y - shootStar.vy/shootStar.vx*len,
+            shootStar.x - (shootStar.vx / speed) * len,
+            shootStar.y - (shootStar.vy / speed) * len,
             shootStar.x, shootStar.y
           )
           sg.addColorStop(0,'rgba(255,255,255,0)')
