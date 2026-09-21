@@ -71,12 +71,12 @@ export default function CodingPage({ data, onSave }) {
 
   const addBadge = pi =>
     setPlatforms(ps => ps.map((p, idx) => idx === pi
-      ? { ...p, langBadges: [...(p.langBadges || []), { lang: 'New', stars: 3, color: '#ffffff' }] }
+      ? { ...p, langBadges: [...(Array.isArray(p.langBadges) ? p.langBadges : []), { lang: 'New', stars: 3, color: '#ffffff' }] }
       : p))
 
   const removeBadge = (pi, li) =>
     setPlatforms(ps => ps.map((p, idx) => idx === pi
-      ? { ...p, langBadges: p.langBadges.filter((_, lidx) => lidx !== li) }
+      ? { ...p, langBadges: (p.langBadges || []).filter((_, lidx) => lidx !== li) }
       : p))
 
   const handleSave = () => {
@@ -148,13 +148,13 @@ export default function CodingPage({ data, onSave }) {
             </div>
           )}
 
-          {Array.isArray(p.langBadges) && (
+          {p.platform === 'HackerRank' && (
             <div className="mb-3">
               <label className="admin-label mb-2 block">Language Badges</label>
-              {p.langBadges.map((l, li) => (
+              {(p.langBadges || []).map((l, li) => (
                 <div key={li} className="flex gap-2 items-end mb-2">
                   <Field label="Language" value={l.lang} onChange={v => updateBadge(pi, li, 'lang', v)} />
-                  <div className="flex flex-col gap-1" style={{ minWidth: 80 }}>
+                  <div className="flex flex-col gap-1" style={{ minWidth: 90 }}>
                     <label className="admin-label">Stars ({l.stars}/5)</label>
                     <input type="range" min={1} max={5} value={l.stars}
                       onChange={e => updateBadge(pi, li, 'stars', Number(e.target.value))}

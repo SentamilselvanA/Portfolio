@@ -26,8 +26,16 @@ function load() {
         ...p,
         stats: (p.stats || []).map(s => ({ ...s })),
         bars:  (p.bars  || []).map(b => [...b]),
-        ...(p.langBadges ? { langBadges: p.langBadges.map(l => ({ ...l })) } : {}),
+        ...(Array.isArray(p.langBadges) ? { langBadges: p.langBadges.map(l => ({ ...l })) } : {}),
       }))
+      // Repair langBadges on each platform from defaults if missing
+      c.platforms.forEach(p => {
+        if (!Array.isArray(p.langBadges)) {
+          const def = D_CODING.platforms.find(d => d.platform === p.platform)
+          if (def && Array.isArray(def.langBadges))
+            p.langBadges = def.langBadges.map(l => ({ ...l }))
+        }
+      })
     }
     return parsed
   } catch { return null }
