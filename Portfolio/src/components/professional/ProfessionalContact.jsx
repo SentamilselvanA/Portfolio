@@ -145,7 +145,7 @@ export default function ProfessionalContact() {
               </a>
             ))}
           </div>
-          <div className="text-xs" style={{ color: '#cbd5e1' }}>© 2024 Sentamilselvan · Built with React + Tailwind + Framer Motion</div>
+          <div className="text-xs" style={{ color: '#cbd5e1' }}>© 2026 Sentamilselvan · Built with React + Tailwind + Framer Motion</div>
         </motion.div>
       </div>
     </section>
