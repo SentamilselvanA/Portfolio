@@ -58,6 +58,16 @@ export default function CodingPage({ data, onSave }) {
       ? { ...p, bars: p.bars.map((b, bidx) => bidx === bi ? (col === 0 ? [v, b[1]] : [b[0], Number(v)]) : b) }
       : p))
 
+  const addStat = pi =>
+    setPlatforms(ps => ps.map((p, idx) => idx === pi
+      ? { ...p, stats: [...p.stats, { label: 'Problems Solved', value: 0, suffix: '+' }] }
+      : p))
+
+  const removeStat = (pi, si) =>
+    setPlatforms(ps => ps.map((p, idx) => idx === pi
+      ? { ...p, stats: p.stats.filter((_, sidx) => sidx !== si) }
+      : p))
+
   const addBar = pi =>
     setPlatforms(ps => ps.map((p, idx) => idx === pi ? { ...p, bars: [...p.bars, ['New Topic', 70]] } : p))
 
@@ -78,6 +88,15 @@ export default function CodingPage({ data, onSave }) {
     setPlatforms(ps => ps.map((p, idx) => idx === pi
       ? { ...p, langBadges: (p.langBadges || []).filter((_, lidx) => lidx !== li) }
       : p))
+
+  const addPlatform = () =>
+    setPlatforms(ps => [...ps, {
+      platform: 'New Platform', icon: '🌐', color: '#ffffff',
+      stats: [], bars: [], link: '#',
+    }])
+
+  const removePlatform = pi =>
+    setPlatforms(ps => ps.filter((_, idx) => idx !== pi))
 
   const handleSave = () => {
     // Sync quick values from platform stats before saving — one canonical update
@@ -110,27 +129,30 @@ export default function CodingPage({ data, onSave }) {
       </FormCard>
 
       {platforms.map((p, pi) => (
-        <FormCard key={pi} title={`${p.platform} Platform`} icon={p.icon}>
+        <FormCard key={pi} title={`${p.platform} Platform`} icon={p.icon}
+          action={<button onClick={() => removePlatform(pi)}
+            style={{ padding: '4px 12px', borderRadius: 8, fontSize: 12, fontWeight: 600,
+              background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.25)',
+              color: '#f87171', cursor: 'pointer' }}>Remove</button>}>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
             <Field label="Platform Name" value={p.platform} onChange={v => setPlatforms(ps => ps.map((pl, idx) => idx === pi ? { ...pl, platform: v } : pl))} />
             <Field label="Profile Link" value={p.link} onChange={v => setPlatforms(ps => ps.map((pl, idx) => idx === pi ? { ...pl, link: v } : pl))} />
           </div>
 
-          {p.stats?.length > 0 && (
-            <div className="mb-3">
+          <div className="mb-3">
               <label className="admin-label mb-2 block">Stats</label>
               {p.stats.map((s, si) => (
-                <div key={si} className="grid grid-cols-3 gap-2 mb-2">
+                <div key={si} className="flex gap-2 items-end mb-2">
                   <Field label="Label" value={s.label} onChange={v => updatePlatStat(pi, si, 'label', v)} />
                   <Field label="Value" value={String(s.value)} onChange={v => updatePlatStat(pi, si, 'value', Number(v))} type="number" />
                   <Field label="Suffix" value={s.suffix || ''} onChange={v => updatePlatStat(pi, si, 'suffix', v)} />
+                  <RemoveBtn onClick={() => removeStat(pi, si)} />
                 </div>
               ))}
+              <AddBtn onClick={() => addStat(pi)} label="Add Stat" />
             </div>
-          )}
 
-          {p.bars?.length > 0 && (
-            <div className="mb-3">
+          <div className="mb-3">
               <label className="admin-label mb-2 block">Skill Bars</label>
               {p.bars.map((b, bi) => (
                 <div key={bi} className="flex gap-2 items-end mb-2">
@@ -146,7 +168,6 @@ export default function CodingPage({ data, onSave }) {
               ))}
               <AddBtn onClick={() => addBar(pi)} label="Add Bar" />
             </div>
-          )}
 
           {p.platform === 'HackerRank' && (
             <div className="mb-3">
@@ -171,6 +192,7 @@ export default function CodingPage({ data, onSave }) {
           <SaveBtn onClick={handleSave} />
         </FormCard>
       ))}
+      <AddBtn onClick={addPlatform} label="Add Platform" />
     </div>
   )
 }

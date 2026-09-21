@@ -46,12 +46,15 @@ export function Textarea({ label, value, onChange, rows = 3 }) {
 }
 
 // ── FormCard ───────────────────────────────────────────
-export function FormCard({ title, icon, children }) {
+export function FormCard({ title, icon, action, children }) {
   return (
     <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 16, padding: '1.5rem' }}>
-      <h3 style={{ color: '#fff', fontWeight: 700, fontSize: 16, marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: 8 }}>
-        <span>{icon}</span> {title}
-      </h3>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
+        <h3 style={{ color: '#fff', fontWeight: 700, fontSize: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span>{icon}</span> {title}
+        </h3>
+        {action && <div>{action}</div>}
+      </div>
       <div className="flex flex-col gap-4">{children}</div>
     </div>
   )
